@@ -1,0 +1,9 @@
+@mixin circle($radio) {
+    width: $radio;
+    height: $radio;
+    opacity: 0.5;
+    position: absolute;
+    border-radius: 100%;
+    mask: url('../img/circle.svg') center / contain no-repeat;
+    -webkit-mask: url('../img/circle.svg') center / contain no-repeat;
+}
