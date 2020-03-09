@@ -43,7 +43,7 @@ h1 {
 }
 
 a {
-    color: $blue;
+    color: $light-gray;
     text-decoration-style: none;
     text-decoration: none;
 }
@@ -69,7 +69,7 @@ a {
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: $blue;
+        background-color: $light-gray;
     }
 
     &::-webkit-scrollbar-corner {
@@ -97,7 +97,7 @@ body {
 
             &>.body {
                 min-height: calc(100% - 125px);
-                display: flex;
+                height: calc(100% - 125px);
                 background-color: white;
             }
 

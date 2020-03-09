@@ -1,4 +1,5 @@
 import React from 'react'
+import Menu from './Menu'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -8,8 +9,9 @@ const Layout = props => {
 
     return (
         <div className="content">
+            <Menu />
             <Header />
-            <div className="body">
+            <div className="body scroll">
                 {props.children}
             </div>
             <Footer />
