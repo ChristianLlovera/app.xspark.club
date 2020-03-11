@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Icons from '../Icons'
 import useStore from '../../Store/useStore'
 
@@ -7,18 +8,14 @@ if (process.env.WEBPACK) { require('./_style.scss') }
 const Button = props => {
 
     const { setMenu } = useStore()
-    const { text, action, icon } = props
-    const handerAction = () => {
-        action()
-        setMenu()
+    const { text, to, icon } = props
 
-    }
 
     return (
-        <div className="button" onClick={() => handerAction()}>
+        <Link to={to} className="button" onClick={() => setMenu()}>
             <Icons type={icon} />
             <span>{text}</span>
-        </div>
+        </Link>
     )
 }
 
@@ -38,13 +35,13 @@ const Menu = props => {
                     <div className="logo"></div>
                 </header>
                 <div className="body scroll">
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
-                    <Button icon='plus' text='none' action={() => { }} />
+                    <Button icon='plus' text='profile' to="/profile" />
+                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='none' to="/" />
                 </div>
             </div>
 

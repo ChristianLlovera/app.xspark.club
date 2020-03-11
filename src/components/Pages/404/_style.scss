@@ -1,17 +1,8 @@
-.error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: inherit;
-
-    &>.notFound {
-        width: 330px;
-        height: 330px;
-        background-image: url('../img/404.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 100%;
-    }
-
+.notFound {
+    width: 330px;
+    height: 330px;
+    background-image: url('../img/404.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }

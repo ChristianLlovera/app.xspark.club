@@ -2,11 +2,15 @@ import React from 'react'
 
 if (process.env.WEBPACK) { require('./_style.scss') }
 
-const Home = props => {
+const Profile = props => {
 
     return (
-        <div className="message"></div>
+
+        <div className="profile">
+
+        </div>
+
     )
 }
 
-export default Home
+export default Profile
