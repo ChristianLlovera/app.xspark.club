@@ -35,13 +35,10 @@ const Menu = props => {
                     <div className="logo"></div>
                 </header>
                 <div className="body scroll">
-                    <Button icon='plus' text='profile' to="/profile" />
-                    <Button icon='plus' text='none' to="/" />
-                    <Button icon='plus' text='none' to="/" />
-                    <Button icon='plus' text='none' to="/" />
-                    <Button icon='plus' text='none' to="/" />
-                    <Button icon='plus' text='none' to="/" />
-                    <Button icon='plus' text='none' to="/" />
+                    <Button icon='plus' text='entrenadores' to="/" />
+                    <Button icon='plus' text='padres' to="/" />
+                    <Button icon='plus' text='fichas' to="/profile" />
+                    <Button icon='plus' text='login' to="/" />
                 </div>
             </div>
 
