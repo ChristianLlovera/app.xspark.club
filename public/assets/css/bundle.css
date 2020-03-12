@@ -2596,11 +2596,19 @@ body {
   padding: 10px;
   padding-top: 0px; }
   .ranking > .title {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     font-size: 10px;
     line-height: 12px;
     padding-bottom: 5px;
     text-transform: uppercase;
-    color: rgba(128, 128, 128, 0.5); }
+    color: #FC4C02; }
   .ranking > .items {
     width: 100%;
     display: -webkit-box;
@@ -2618,7 +2626,21 @@ body {
       height: 10px;
       background-color: rgba(128, 128, 128, 0.2); }
     .ranking > .items > .active {
-      background-color: rgba(128, 128, 128, 0.5); }
+      background-color: #FC4C02; }
+
+.input {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  padding-top: 0px; }
+  .input > .title {
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+    color: rgba(128, 128, 128, 0.5); }
+  .input > .data {
+    width: 100%;
+    font-size: 12px; }
 
 .profile {
   min-width: 350px;
@@ -2635,16 +2657,18 @@ body {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     width: 100%;
     height: auto;
-    margin-bottom: 70px;
+    padding-bottom: 50px;
+    margin-bottom: 120px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.2); }
     .profile > header > .info {
       width: 50%;
+      margin-bottom: -165px;
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
@@ -2660,11 +2684,12 @@ body {
       align-items: center;
       font-family: Arial, Helvetica, sans-serif;
       padding: 10px;
-      padding-top: 20px;
-      font-weight: 900; }
+      padding-top: 20px; }
       .profile > header > .info > .img {
         height: 100px;
         width: 100px;
+        margin-top: 10px;
+        margin-bottom: 20px;
         border-radius: 100%;
         border: 1px solid rgba(128, 128, 128, 0.2);
         background-color: white;
@@ -2677,8 +2702,8 @@ body {
         font-family: inherit;
         text-align: center;
         font-size: 24px;
+        font-weight: 900;
         letter-spacing: -2px;
-        font-weight: inherit;
         text-transform: uppercase;
         margin: 0px;
         padding: 5px; }
@@ -2690,16 +2715,36 @@ body {
         text-align: center;
         text-transform: uppercase;
         margin: 0px;
+        margin-bottom: 5px;
         padding: 0px; }
-      .profile > header > .info > p {
+      .profile > header > .info > span {
         margin: 0px;
         font-size: 10px;
+        line-height: 12px;
         font-weight: 100;
         text-align: center;
         text-transform: uppercase; }
-    .profile > header > .ranking-list {
-      width: 50%;
-      padding-top: 20px; }
+      .profile > header > .info > .orange {
+        color: #FC4C02; }
+  .profile > .block-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%; }
+    .profile > .block-list > span > .title {
+      text-transform: uppercase;
+      margin: 10px;
+      padding-bottom: 5px;
+      font-weight: 900;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.2); }
+    .profile > .block-list > span > p {
+      font-size: 12px;
+      padding: 10px;
+      padding-top: 0px;
+      margin: 0px; }
+  .profile > .two > span {
+    width: 50%; }
 
 .notFound {
   width: 330px;

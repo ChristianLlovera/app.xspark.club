@@ -28,7 +28,10 @@ const Ranking = props => {
 
     return (
         <div className="ranking">
-            <div className="title">{title}</div>
+            <div className="title">
+                <span>{title}</span>
+                <span>{rank}/10</span>
+            </div>
             <div className="items">{items}</div>
         </div>
     )
