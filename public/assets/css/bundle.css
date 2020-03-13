@@ -6,6 +6,14 @@
   mask: url("../icons/plus.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/plus.svg") center/contain no-repeat; }
 
+.icon_type-edit {
+  mask: url("../icons/edit.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/edit.svg") center/contain no-repeat; }
+
+.icon_type-back {
+  mask: url("../icons/back.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/back.svg") center/contain no-repeat; }
+
 .bg-menu {
   position: absolute;
   -webkit-transition: 0.5s;
@@ -2642,6 +2650,31 @@ body {
     width: 100%;
     font-size: 12px; }
 
+.icon-button {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: transparent; }
+  .icon-button:hover {
+    background-color: rgba(128, 128, 128, 0.2); }
+  .icon-button > i {
+    width: 50%;
+    height: 50%;
+    background-color: rgba(128, 128, 128, 0.5); }
+
 .profile {
   min-width: 350px;
   width: 50%;
@@ -2666,6 +2699,14 @@ body {
     padding-bottom: 50px;
     margin-bottom: 120px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.2); }
+    .profile > header > .button-left {
+      position: absolute;
+      left: 0px;
+      padding: 10px; }
+    .profile > header > .button-right {
+      position: absolute;
+      right: 0px;
+      padding: 10px; }
     .profile > header > .info {
       width: 50%;
       margin-bottom: -165px;

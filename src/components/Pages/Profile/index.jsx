@@ -1,15 +1,25 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 import Ranking from '../../Layout/Ranking'
 import Input from '../../Layout/Input'
+import IconButton from '../../Layout/IconButton'
 
 if (process.env.WEBPACK) { require('./_style.scss') }
 
 const Profile = props => {
 
+    const history = useHistory();
+
     return (
 
         <div className="profile">
             <header>
+                <div className="button-left">
+                    <IconButton radio={50} icon="back" onClick={() => history.push("/")} />
+                </div>
+                <div className="button-right">
+                    <IconButton radio={50} icon="edit" onClick={() => history.push("/")} />
+                </div>
                 <div className="info">
                     <h1>Juan Vicente</h1>
                     <h2>Rojas Martin</h2>

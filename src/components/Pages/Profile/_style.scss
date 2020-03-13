@@ -20,6 +20,18 @@
         margin-bottom: 120px;
         border-bottom: 1px solid $light-gray;
 
+        &>.button-left {
+            position: absolute;
+            left: 0px;
+            padding: 10px
+        }
+
+        &>.button-right {
+            position: absolute;
+            right: 0px;
+            padding: 10px
+        }
+
         &>.info {
             width: 50%;
             margin-bottom: -165px;
