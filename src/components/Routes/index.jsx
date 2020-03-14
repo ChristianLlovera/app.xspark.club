@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from '../Pages/Home'
 import Profile from '../Pages/Profile'
+import EditProfile from '../Pages/EditProfile'
 import NoFount from '../Pages/404'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -10,6 +11,7 @@ const Routes = () => {
         <Switch>
             <Route path={'/'} exact component={Home} />
             <Route path={'/profile'} component={Profile} />
+            <Route path={'/edit-profile'} component={EditProfile} />
             <Route component={NoFount} />
         </Switch>
     )

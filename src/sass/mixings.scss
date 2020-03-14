@@ -7,3 +7,25 @@
     mask: url('../img/circle.svg') center / contain no-repeat;
     -webkit-mask: url('../img/circle.svg') center / contain no-repeat;
 }
+
+@mixin card {
+    min-width: 350px;
+    width: 50%;
+    min-height: 400px;
+    height: auto;
+    border: solid 1px $light-gray;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+@mixin card-header($padding-b, $margin-b) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding-bottom: $padding-b;
+    margin-bottom: $margin-b;
+    border-bottom: 1px solid $light-gray;
+}

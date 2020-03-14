@@ -1,3 +1,9 @@
+i {
+  display: block;
+  min-width: 10px;
+  min-height: 10px;
+  background-color: gray; }
+
 .icon_type-menu {
   mask: url("../icons/menu.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/menu.svg") center/contain no-repeat; }
@@ -5,6 +11,10 @@
 .icon_type-plus {
   mask: url("../icons/plus.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/plus.svg") center/contain no-repeat; }
+
+.icon_type-less {
+  mask: url("../icons/less.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/less.svg") center/contain no-repeat; }
 
 .icon_type-edit {
   mask: url("../icons/edit.svg") center/contain no-repeat;
@@ -61,7 +71,7 @@
       cursor: pointer;
       width: 65px;
       height: 65px; }
-      .menu > header > .menu-button > i {
+      .menu > header > .menu-button > icon {
         width: 20px;
         height: 20px;
         background-color: rgba(128, 128, 128, 0.5); }
@@ -2515,9 +2525,6 @@ Copyright (c) 2015 Daniel Eden
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-i {
-  display: block; }
-
 html,
 body {
   position: relative;
@@ -2546,7 +2553,8 @@ a {
 
 .scroll {
   overflow: auto;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  overflow-y: scroll; }
   .scroll::-webkit-scrollbar {
     width: 10px; }
   .scroll::-webkit-scrollbar-button {
@@ -2598,11 +2606,57 @@ body {
   background-position: top;
   background-size: 100%; }
 
+.icon-button {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: transparent; }
+  .icon-button:hover {
+    background-color: rgba(128, 128, 128, 0.2); }
+  .icon-button > i {
+    width: 50%;
+    height: 50%;
+    background-color: rgba(128, 128, 128, 0.5); }
+
+.input {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  padding-top: 0px; }
+  .input > .title {
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+    color: rgba(128, 128, 128, 0.5); }
+  .input > .data {
+    width: 100%;
+    font-size: 12px; }
+
 .ranking {
   width: 100%;
   height: auto;
   padding: 10px;
   padding-top: 0px; }
+  .ranking > .rank-button {
+    position: absolute;
+    top: 7px; }
+  .ranking > .less-button {
+    left: -25px; }
+  .ranking > .plus-button {
+    right: -25px; }
   .ranking > .title {
     display: -webkit-box;
     display: -webkit-flex;
@@ -2636,46 +2690,7 @@ body {
     .ranking > .items > .active {
       background-color: #FC4C02; }
 
-.input {
-  width: 100%;
-  height: auto;
-  padding: 10px;
-  padding-top: 0px; }
-  .input > .title {
-    font-size: 10px;
-    line-height: 12px;
-    text-transform: uppercase;
-    color: rgba(128, 128, 128, 0.5); }
-  .input > .data {
-    width: 100%;
-    font-size: 12px; }
-
-.icon-button {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 100%;
-  background-color: transparent; }
-  .icon-button:hover {
-    background-color: rgba(128, 128, 128, 0.2); }
-  .icon-button > i {
-    width: 50%;
-    height: 50%;
-    background-color: rgba(128, 128, 128, 0.5); }
-
-.profile {
+.card {
   min-width: 350px;
   width: 50%;
   min-height: 400px;
@@ -2685,7 +2700,8 @@ body {
   margin-bottom: 40px;
   border-radius: 10px;
   overflow: hidden; }
-  .profile > header {
+  .card > header {
+    min-height: 70px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2696,20 +2712,17 @@ body {
     justify-content: center;
     width: 100%;
     height: auto;
-    padding-bottom: 50px;
-    margin-bottom: 120px;
+    margin-bottom: 20px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.2); }
-    .profile > header > .button-left {
+    .card > header > .card-button {
       position: absolute;
-      left: 0px;
       padding: 10px; }
-    .profile > header > .button-right {
-      position: absolute;
-      right: 0px;
-      padding: 10px; }
-    .profile > header > .info {
+    .card > header > .left {
+      left: 0px; }
+    .card > header > .right {
+      right: 0px; }
+    .card > header > .info {
       width: 50%;
-      margin-bottom: -165px;
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
@@ -2726,7 +2739,7 @@ body {
       font-family: Arial, Helvetica, sans-serif;
       padding: 10px;
       padding-top: 20px; }
-      .profile > header > .info > .img {
+      .card > header > .info > .img {
         height: 100px;
         width: 100px;
         margin-top: 10px;
@@ -2738,7 +2751,7 @@ body {
         background-repeat: no-repeat;
         background-size: 110%;
         background-position: center; }
-      .profile > header > .info > h1 {
+      .card > header > .info > h1 {
         color: inherit;
         font-family: inherit;
         text-align: center;
@@ -2748,7 +2761,7 @@ body {
         text-transform: uppercase;
         margin: 0px;
         padding: 5px; }
-      .profile > header > .info > h2 {
+      .card > header > .info > h2 {
         font-size: 20px;
         font-weight: 100;
         letter-spacing: -2px;
@@ -2758,33 +2771,42 @@ body {
         margin: 0px;
         margin-bottom: 5px;
         padding: 0px; }
-      .profile > header > .info > span {
+      .card > header > .info > span {
         margin: 0px;
         font-size: 10px;
         line-height: 12px;
         font-weight: 100;
         text-align: center;
         text-transform: uppercase; }
-      .profile > header > .info > .orange {
+      .card > header > .info > .orange {
         color: #FC4C02; }
-  .profile > .block-list {
+  .card > header[type='profile'] {
+    padding-bottom: 50px;
+    margin-bottom: 120px; }
+    .card > header[type='profile'] > .info {
+      margin-bottom: -165px; }
+  .card > .card-grid {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     width: 100%; }
-    .profile > .block-list > span > .title {
+    .card > .card-grid > span > .title {
       text-transform: uppercase;
       margin: 10px;
       padding-bottom: 5px;
       font-weight: 900;
       border-bottom: 1px solid rgba(128, 128, 128, 0.2); }
-    .profile > .block-list > span > p {
+    .card > .card-grid > span > p {
       font-size: 12px;
       padding: 10px;
       padding-top: 0px;
       margin: 0px; }
-  .profile > .two > span {
+  .card > .cg-two > span {
     width: 50%; }
 
 .notFound {

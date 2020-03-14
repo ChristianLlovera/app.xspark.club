@@ -1,6 +1,6 @@
 @import "sass/variables";
 
-.profile {
+.card {
     min-width: 350px;
     width: 50%;
     min-height: 400px;
@@ -12,29 +12,29 @@
     overflow: hidden;
 
     &>header {
+        min-height: 70px;
         display: flex;
         justify-content: center;
         width: 100%;
         height: auto;
-        padding-bottom: 50px;
-        margin-bottom: 120px;
+        margin-bottom: 20px;
         border-bottom: 1px solid $light-gray;
 
-        &>.button-left {
+        &>.card-button {
             position: absolute;
-            left: 0px;
             padding: 10px
         }
 
-        &>.button-right {
-            position: absolute;
+        &>.left {
+            left: 0px;
+        }
+
+        &>.right {
             right: 0px;
-            padding: 10px
         }
 
         &>.info {
             width: 50%;
-            margin-bottom: -165px;
             display: flex;
             flex-flow: column;
             align-items: center;
@@ -94,11 +94,21 @@
                 color: $orange
             }
         }
-
     }
 
-    &>.block-list {
+    &>header[type='profile'] {
+        padding-bottom: 50px;
+        margin-bottom: 120px;
+
+        &>.info {
+            margin-bottom: -165px;
+        }
+    }
+
+
+    &>.card-grid {
         display: flex;
+        justify-content: center;
         width: 100%;
 
         &>span {
@@ -121,7 +131,7 @@
 
     }
 
-    &>.two {
+    &>.cg-two {
         &>span {
             width: 50%;
         }

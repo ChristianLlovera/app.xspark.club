@@ -1,3 +1,10 @@
+i {
+    display: block;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: gray;
+}
+
 .icon_type-menu {
     mask: url('../icons/menu.svg') center / contain no-repeat;
     -webkit-mask: url('../icons/menu.svg') center / contain no-repeat;
@@ -6,6 +13,11 @@
 .icon_type-plus {
     mask: url('../icons/plus.svg') center / contain no-repeat;
     -webkit-mask: url('../icons/plus.svg') center / contain no-repeat;
+}
+
+.icon_type-less {
+    mask: url('../icons/less.svg') center / contain no-repeat;
+    -webkit-mask: url('../icons/less.svg') center / contain no-repeat;
 }
 
 .icon_type-edit {

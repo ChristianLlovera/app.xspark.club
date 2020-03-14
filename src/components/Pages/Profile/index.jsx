@@ -1,10 +1,8 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
-import Ranking from '../../Layout/Ranking'
 import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
-
-if (process.env.WEBPACK) { require('./_style.scss') }
+import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
 
 const Profile = props => {
 
@@ -12,77 +10,68 @@ const Profile = props => {
 
     return (
 
-        <div className="profile">
-            <header>
-                <div className="button-left">
-                    <IconButton radio={50} icon="back" onClick={() => history.push("/")} />
-                </div>
-                <div className="button-right">
-                    <IconButton radio={50} icon="edit" onClick={() => history.push("/")} />
-                </div>
-                <div className="info">
-                    <h1>Juan Vicente</h1>
-                    <h2>Rojas Martin</h2>
-                    <span>DOC - 15678223445</span>
-                    <span>14/12/2011 - 8 años</span>
-                    <span className="orange">-FÚTBOL ACADEMY-</span>
-                    <div className="img"></div>
-                    <Ranking rank={7} title="puntuación" />
-                </div>
-            </header>
+        <Card>
+            <CardProfileHeader
+                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/")} />}
+                buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/edit-profile")} />}
+                name="Juan Vicente"
+                lastName="Rojas Martin"
+                birthdate="14/12/2011"
+                doc="15678223445"
+                category="FÚTBOL ACADEMY"
+                img="url"
+                ranking={7}
+            />
 
-            <div className="block-list two">
-                <span>
-                    <Input title="Director Deportivo" data="Nombre Director" type="block" />
-                </span>
-                <span>
-                    <Input title="Entrenador" data="Nombre Entrenador" type="block" />
-                </span>
-            </div>
+            <CardGrid two>
+                <CardBlock>
+                    <Input title="Director Deportivo" data="Nombre Director" type="read" />
+                </CardBlock>
+                <CardBlock>
+                    <Input title="Entrenador" data="Nombre Entrenador" type="read" />
+                </CardBlock>
+            </CardGrid>
 
-            <div className="block-list two">
-                <span>
-                    <div className="title">físico</div>
-                    <Ranking rank={7} title="velocidad" />
-                    <Ranking rank={5} title="agilidad" />
-                    <Ranking rank={4} title="fuerza" />
-                    <Ranking rank={6} title="resistencia" />
-                    <Ranking rank={9} title="coordinación" />
-                </span>
-                <span>
-                    <div className="title">técnico</div>
-                    <Ranking rank={7} title="conducción" />
-                    <Ranking rank={5} title="regate" />
-                    <Ranking rank={3} title="tiro" />
-                    <Ranking rank={2} title="pase" />
-                    <Ranking rank={8} title="control" />
-                </span>
-            </div>
 
-            <div className="block-list">
-                <span>
-                    <div className="title">Observaciones</div>
+            <CardGrid two>
+                <CardBlock title="FÍSICO">
+                    <Input type="ranking-read" data={7} title="velocidad" />
+                    <Input type="ranking-read" data={5} title="agilidad" />
+                    <Input type="ranking-read" data={4} title="fuerza" />
+                    <Input type="ranking-read" data={6} title="resistencia" />
+                    <Input type="ranking-read" data={9} title="coordinación" />
+                </CardBlock>
+                <CardBlock title="TÉCNICO">
+                    <Input type="ranking-read" data={7} title="conducción" />
+                    <Input type="ranking-read" data={5} title="regate" />
+                    <Input type="ranking-read" data={3} title="tiro" />
+                    <Input type="ranking-read" data={2} title="pase" />
+                    <Input type="ranking-read" data={8} title="control" />
+                </CardBlock>
+            </CardGrid>
+
+            <CardGrid>
+                <CardBlock title="Observaciones">
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat autem corrupti quisquam veniam excepturi velit, culpa perferendis adipisci nobis dolorum animi dicta laborum necessitatibus. Architecto harum cupiditate quasi totam sapiente!</p>
-                </span>
-            </div>
+                </CardBlock>
+            </CardGrid>
 
-            <div className="block-list two">
-                <span>
-                    <div className="title">acudiente</div>
-                    <Input title="Nombre" data="Juan Rojas" type="block" />
-                    <Input title="Doc" data="23432234" type="block" />
-                    <Input title="Mail" data="juancrojasmartin@hotmil.com" type="block" />
-                    <Input title="Télefono" data="6270 3312" type="block" />
-                    <Input title="Télefono Emergencia" data="6270 3312" type="block" />
-                </span>
-                <span>
-                    <div className="title">seguro</div>
-                    <Input title="Compañia" data="Seguros No Name" type="block" />
-                    <Input title="Número" data="049938432" type="block" />
-                </span>
-            </div>
+            <CardGrid two>
+                <CardBlock title="Acudiente">
+                    <Input title="Nombre" data="Juan Rojas" type="read" />
+                    <Input title="Doc" data="23432234" type="read" />
+                    <Input title="Mail" data="juancrojasmartin@hotmil.com" type="read" />
+                    <Input title="Télefono" data="6270 3312" type="read" />
+                    <Input title="Télefono Emergencia" data="6270 3312" type="read" />
+                </CardBlock>
+                <CardBlock title="Seguro">
+                    <Input title="Compañia" data="Seguros No Name" type="read" />
+                    <Input title="Número" data="049938432" type="read" />
+                </CardBlock>
+            </CardGrid>
 
-        </div>
+
+        </Card >
 
     )
 }
