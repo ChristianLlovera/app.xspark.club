@@ -28,7 +28,7 @@ const Ranking = props => {
     }
 
     return (
-        <div className="ranking">
+        <div className="ranking" type={type}>
             {type == "edit" &&
                 <span className="rank-button less-button">
                     <IconButton type="border" radio={30} icon="less" onClick={() => data > 0 ? less() : null} />

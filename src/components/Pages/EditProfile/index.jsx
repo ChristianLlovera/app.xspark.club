@@ -5,13 +5,29 @@ import IconButton from '../../Layout/IconButton'
 import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 
 
+const model = {
+    velocidad: 5,
+    regate: 3,
+    pase: 2
+}
+
 const EditProfile = props => {
 
     const history = useHistory();
-    const [RankA, setRankA] = useState(2)
-    const [RankB, setRankB] = useState(3)
-    const [RankC, setRankC] = useState(7)
+    const [data, setData] = useState([model])
+    const [dataState] = data
 
+    const plus = (name) => {
+        const value = dataState[name]
+        dataState[name] = value + 1
+        setData([dataState])
+    }
+
+    const less = (name) => {
+        const value = dataState[name]
+        dataState[name] = value - 1
+        setData([dataState])
+    }
 
     return (
 
@@ -23,25 +39,25 @@ const EditProfile = props => {
 
             <CardGrid two>
                 <CardBlock>
-                    <Input type="ranking-edit" title="Ranking" data={RankA}
-                        plusAction={() => setRankA(RankA + 1)}
-                        lessAction={() => setRankA(RankA - 1)} />
+                    <Input type="ranking-edit" title="Velocidad" data={dataState.velocidad}
+                        plusAction={() => plus('velocidad')}
+                        lessAction={() => less('velocidad')} />
                 </CardBlock>
             </CardGrid>
 
             <CardGrid two>
                 <CardBlock>
-                    <Input type="ranking-edit" title="Ranking" data={RankB}
-                        plusAction={() => setRankB(RankB + 1)}
-                        lessAction={() => setRankB(RankB - 1)} />
+                    <Input type="ranking-edit" title="Regate" data={dataState.regate}
+                        plusAction={() => plus('regate')}
+                        lessAction={() => less('regate')} />
                 </CardBlock>
             </CardGrid>
 
             <CardGrid two>
                 <CardBlock>
-                    <Input type="ranking-edit" title="Ranking" data={RankC}
-                        plusAction={() => setRankC(RankC + 1)}
-                        lessAction={() => setRankC(RankC - 1)} />
+                    <Input type="ranking-edit" title="Pase" data={dataState.pase}
+                        plusAction={() => plus('pase')}
+                        lessAction={() => less('pase')} />
                 </CardBlock>
             </CardGrid>
 

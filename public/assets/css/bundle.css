@@ -2649,6 +2649,8 @@ body {
   height: auto;
   padding: 10px;
   padding-top: 0px; }
+  .ranking[type="edit"] {
+    padding-bottom: 20px; }
   .ranking > .rank-button {
     position: absolute;
     top: 7px; }
