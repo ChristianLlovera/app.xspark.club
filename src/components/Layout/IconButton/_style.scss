@@ -3,19 +3,21 @@
 .icon-button {
     cursor: pointer;
     display: flex;
-    transition: 0.5s;
     justify-content: center;
     align-items: center;
     border-radius: 100%;
     background-color: transparent;
 
-    &:hover {
-        background-color: $light-gray;
-    }
 
     &>i {
         width: 50%;
         height: 50%;
         background-color: $gray;
+        z-index: 1;
     }
+
+    &[type='border'] {
+        border: 1px solid $light-gray;
+    }
+
 }

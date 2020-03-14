@@ -31,12 +31,13 @@ const Ranking = props => {
         <div className="ranking">
             {type == "edit" &&
                 <span className="rank-button less-button">
-                    <IconButton radio={30} icon="less" onClick={() => data > 0 ? less() : null} />
+                    <IconButton type="border" radio={30} icon="less" onClick={() => data > 0 ? less() : null} />
                 </span>
             }
+
             {type == "edit" &&
                 <span className="rank-button plus-button">
-                    <IconButton radio={30} icon="plus" onClick={() => data < 10 ? plus() : null} />
+                    <IconButton type="border" radio={30} icon="plus" onClick={() => data < 10 ? plus() : null} />
                 </span>
             }
 

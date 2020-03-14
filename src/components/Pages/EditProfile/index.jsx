@@ -8,7 +8,9 @@ import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 const EditProfile = props => {
 
     const history = useHistory();
-    const [Rank, setRank] = useState(2)
+    const [RankA, setRankA] = useState(2)
+    const [RankB, setRankB] = useState(3)
+    const [RankC, setRankC] = useState(7)
 
 
     return (
@@ -21,11 +23,29 @@ const EditProfile = props => {
 
             <CardGrid two>
                 <CardBlock>
-                    <Input type="ranking-edit" title="Ranking" data={Rank}
-                        plusAction={() => setRank(Rank + 1)}
-                        lessAction={() => setRank(Rank - 1)} />
+                    <Input type="ranking-edit" title="Ranking" data={RankA}
+                        plusAction={() => setRankA(RankA + 1)}
+                        lessAction={() => setRankA(RankA - 1)} />
                 </CardBlock>
             </CardGrid>
+
+            <CardGrid two>
+                <CardBlock>
+                    <Input type="ranking-edit" title="Ranking" data={RankB}
+                        plusAction={() => setRankB(RankB + 1)}
+                        lessAction={() => setRankB(RankB - 1)} />
+                </CardBlock>
+            </CardGrid>
+
+            <CardGrid two>
+                <CardBlock>
+                    <Input type="ranking-edit" title="Ranking" data={RankC}
+                        plusAction={() => setRankC(RankC + 1)}
+                        lessAction={() => setRankC(RankC - 1)} />
+                </CardBlock>
+            </CardGrid>
+
+
         </Card >
 
     )
