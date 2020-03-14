@@ -27,12 +27,13 @@
     padding-top: 0px;
 
     &[type="edit"] {
+        padding-top: 10px;
         padding-bottom: 20px;
     }
 
     &>.rank-button {
         position: absolute;
-        top: 7px;
+        top: 17px;
     }
 
     &>.less-button {

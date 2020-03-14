@@ -6,9 +6,66 @@ import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 
 
 const model = {
-    velocidad: 5,
-    regate: 3,
-    pase: 2
+    info: {
+        name: 'Juan Vicente',
+        lastName: 'Rojas Martin',
+        birthdate: '14/12/2011',
+        document: '102030405',
+        academy: 'FÚTBOL ACADEMY',
+        ranking: 7
+    },
+    fisico: {
+        velocidad: 5,
+        agilidad: 3,
+        fuerza: 2,
+        resistencia: 7,
+        coordinacion: 9
+    },
+    tecnico: {
+        conduccion: 4,
+        regate: 3,
+        tiro: 8,
+        pase: 2,
+        control: 4
+    }
+}
+
+const RankingEdit = props => {
+    const { input, type, title, dataState, setData } = props
+    let titleSet
+
+    const plus = () => {
+        const value = dataState[type][input]
+        dataState[type][input] = value + 1
+        setData([dataState])
+    }
+
+    const less = () => {
+        const value = dataState[type][input]
+        dataState[type][input] = value - 1
+        setData([dataState])
+    }
+
+    switch (title) {
+        case "coordinacion":
+            titleSet = "coordinación"
+            break;
+        case "conduccion":
+            titleSet = "conducción"
+            break;
+        default:
+            titleSet = title
+    }
+
+    return (
+        <CardGrid two>
+            <CardBlock>
+                <Input type="ranking-edit" title={titleSet} data={dataState[type][input]}
+                    plusAction={() => plus(input)}
+                    lessAction={() => less(input)} />
+            </CardBlock>
+        </CardGrid>
+    )
 }
 
 const EditProfile = props => {
@@ -16,18 +73,6 @@ const EditProfile = props => {
     const history = useHistory();
     const [data, setData] = useState([model])
     const [dataState] = data
-
-    const plus = (name) => {
-        const value = dataState[name]
-        dataState[name] = value + 1
-        setData([dataState])
-    }
-
-    const less = (name) => {
-        const value = dataState[name]
-        dataState[name] = value - 1
-        setData([dataState])
-    }
 
     return (
 
@@ -37,30 +82,28 @@ const EditProfile = props => {
                 title="Editar datos"
             />
 
-            <CardGrid two>
-                <CardBlock>
-                    <Input type="ranking-edit" title="Velocidad" data={dataState.velocidad}
-                        plusAction={() => plus('velocidad')}
-                        lessAction={() => less('velocidad')} />
-                </CardBlock>
+            <CardGrid>
+                <CardBlock title="información"></CardBlock>
             </CardGrid>
+            <RankingEdit input="ranking" type="info" title="puntuación" dataState={dataState} setData={setData} />
 
-            <CardGrid two>
-                <CardBlock>
-                    <Input type="ranking-edit" title="Regate" data={dataState.regate}
-                        plusAction={() => plus('regate')}
-                        lessAction={() => less('regate')} />
-                </CardBlock>
+            <CardGrid>
+                <CardBlock title="Físico"></CardBlock>
             </CardGrid>
+            {
+                Object.keys(dataState.fisico).map((element, value) =>
+                    <RankingEdit key={element} input={element} type="fisico" title={element} dataState={dataState} setData={setData} />
+                )
+            }
 
-            <CardGrid two>
-                <CardBlock>
-                    <Input type="ranking-edit" title="Pase" data={dataState.pase}
-                        plusAction={() => plus('pase')}
-                        lessAction={() => less('pase')} />
-                </CardBlock>
+            <CardGrid>
+                <CardBlock title="Técnico"></CardBlock>
             </CardGrid>
-
+            {
+                Object.keys(dataState.tecnico).map((element, value) =>
+                    <RankingEdit key={element} input={element} type="tecnico" title={element} dataState={dataState} setData={setData} />
+                )
+            }
 
         </Card >
 
