@@ -1,5 +1,7 @@
 import React from 'react'
 import IconButton from '../IconButton'
+import trans from '../../Utils/translate'
+
 
 if (process.env.WEBPACK) { require('./_style.scss') }
 
@@ -10,7 +12,7 @@ const Read = props => {
     return (
         <div className="input">
             <div className="title">
-                <span>{title}</span>
+                <span>{trans(title)}</span>
             </div>
             <div className="data">{data}</div>
         </div>
@@ -42,7 +44,7 @@ const Ranking = props => {
             }
 
             <div className="title">
-                <span>{title}</span>
+                <span>{trans(title)}</span>
                 <span>{data}/10</span>
             </div>
             <div className="items">{items}</div>
@@ -50,16 +52,30 @@ const Ranking = props => {
     )
 }
 
+const Text = props => {
 
+    const { title, data, placeholder, onChange } = props
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+            <input type="text" value={data} placeholder={placeholder} onChange={e => onChange(e)} />
+        </div>
+    )
+
+}
 
 const Input = props => {
 
-    const { title, data, type, plusAction, lessAction } = props
+    const { title, data, type, placeholder, onChange, plusAction, lessAction } = props
 
     return (
 
         <>
             {type == "read" && <Read title={title} data={data} />}
+            {type == "text" && <Text title={title} onChange={onChange} data={data} placeholder={placeholder} />}
             {type == "ranking-read" && <Ranking type="read" title={title} data={data} />}
             {type == "ranking-edit" && <Ranking type="edit" title={title} data={data} plus={plusAction} less={lessAction} />}
         </>

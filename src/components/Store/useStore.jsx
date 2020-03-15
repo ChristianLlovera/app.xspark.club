@@ -16,7 +16,16 @@ export const useStore = () => {
         setStore([State])
     }
 
+    const getPlayer = () => State.player
+
+    const setPlayer = data => {
+        State.player = data
+        setStore([State])
+    }
+
     return {
+        getPlayer,
+        setPlayer,
         getStore,
         getMenu,
         setMenu

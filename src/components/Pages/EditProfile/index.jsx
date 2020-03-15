@@ -4,35 +4,47 @@ import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 
-
-const model = {
+const model = {//modelo de datos
     info: {
         name: 'Juan Vicente',
-        lastName: 'Rojas Martin',
+        lastname: 'Rojas Martin',
         birthdate: '14/12/2011',
         document: '102030405',
         academy: 'FÚTBOL ACADEMY',
+        director: 'Nombre del director',
+        coach: 'Nombre del entrenador',
         ranking: 7
     },
-    fisico: {
-        velocidad: 5,
-        agilidad: 3,
-        fuerza: 2,
-        resistencia: 7,
-        coordinacion: 9
+    physical: {
+        speed: 5,
+        agility: 3,
+        strength: 2,
+        resistance: 7,
+        coordination: 9
     },
-    tecnico: {
-        conduccion: 4,
-        regate: 3,
-        tiro: 8,
-        pase: 2,
+    technical: {
+        driving: 4,
+        dodge: 3,
+        shot: 8,
+        pass: 2,
         control: 4
+    },
+    observation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    insurance: {
+        company: 'Seguros No Name',
+        number: '23343223'
+    },
+    attender: {
+        name: 'Juan Rojas',
+        document: '12343345',
+        mail: 'juancrojasmartin@hotmail.com',
+        phone: '62703312',
+        emergency: '62703312'
     }
 }
 
-const RankingEdit = props => {
+const RankingEdit = props => {//todos los inputs de ranking para un bucle
     const { input, type, title, dataState, setData } = props
-    let titleSet
 
     const plus = () => {
         const value = dataState[type][input]
@@ -40,27 +52,16 @@ const RankingEdit = props => {
         setData([dataState])
     }
 
-    const less = () => {
-        const value = dataState[type][input]
+    const less = () => {//acción de bajar cantidad
+        const value = dataState[type][input]//se le pasa al objeto los metodos con bariables object['method']
         dataState[type][input] = value - 1
         setData([dataState])
-    }
-
-    switch (title) {
-        case "coordinacion":
-            titleSet = "coordinación"
-            break;
-        case "conduccion":
-            titleSet = "conducción"
-            break;
-        default:
-            titleSet = title
     }
 
     return (
         <CardGrid two>
             <CardBlock>
-                <Input type="ranking-edit" title={titleSet} data={dataState[type][input]}
+                <Input type="ranking-edit" title={title} data={dataState[type][input]}
                     plusAction={() => plus(input)}
                     lessAction={() => less(input)} />
             </CardBlock>
@@ -68,11 +69,37 @@ const RankingEdit = props => {
     )
 }
 
-const EditProfile = props => {
+const InfoEdit = props => {
 
-    const history = useHistory();
+    const { input, type, title, dataState, setData } = props
+
+    if (input == 'ranking') { return false } //si es el ranking no lo muestra
+
+    const handlerkey = e => {
+        dataState[type][input] = e.target.value
+        setData([dataState])
+    }
+
+    return (
+        <CardGrid two>
+            <CardBlock>
+                <Input type="text"
+                    title={title}
+                    placeholder='Escribe Un Nombre'
+                    data={dataState[type][input]}
+                    onChange={e => handlerkey(e)} />
+            </CardBlock>
+        </CardGrid>
+    )
+}
+
+
+const EditProfile = props => {//pagina de edicion de perfiles
+
+    const history = useHistory();//para direccionar con react router history.push("/destino")
     const [data, setData] = useState([model])
     const [dataState] = data
+    const { info, physical, technical, insurance, attender } = dataState
 
     return (
 
@@ -80,28 +107,65 @@ const EditProfile = props => {
             <CardTitleHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile")} />}
                 title="Editar datos"
-            />
+            />{/* header */}
 
-            <CardGrid>
+
+            <CardGrid>{/* titulo */}
                 <CardBlock title="información"></CardBlock>
             </CardGrid>
-            <RankingEdit input="ranking" type="info" title="puntuación" dataState={dataState} setData={setData} />
-
-            <CardGrid>
-                <CardBlock title="Físico"></CardBlock>
-            </CardGrid>
             {
-                Object.keys(dataState.fisico).map((element, value) =>
-                    <RankingEdit key={element} input={element} type="fisico" title={element} dataState={dataState} setData={setData} />
+                Object.keys(info).map((element) =>//bucle de inputs 
+                    <InfoEdit key={element} input={element} type="info" title={element} dataState={dataState} setData={setData} />
                 )
             }
 
-            <CardGrid>
+
+            <CardGrid two>
+                <CardBlock>
+                    <Input type="read" title='observación' data={dataState['observation']} />
+                </CardBlock>
+            </CardGrid>
+
+
+            <RankingEdit input="ranking" type="info" title="puntuación" dataState={dataState} setData={setData} />
+
+
+            <CardGrid>{/* titulo */}
+                <CardBlock title="Físico"></CardBlock>
+            </CardGrid>
+            {
+                Object.keys(physical).map((element) => //bucle de inputs
+                    <RankingEdit key={element} input={element} type="physical" title={element} dataState={dataState} setData={setData} />
+                )
+            }
+
+
+            <CardGrid>{/* titulo */}
                 <CardBlock title="Técnico"></CardBlock>
             </CardGrid>
             {
-                Object.keys(dataState.tecnico).map((element, value) =>
-                    <RankingEdit key={element} input={element} type="tecnico" title={element} dataState={dataState} setData={setData} />
+                Object.keys(technical).map((element) =>//bucle de inpues
+                    <RankingEdit key={element} input={element} type="technical" title={element} dataState={dataState} setData={setData} />
+                )
+            }
+
+
+            <CardGrid>{/* titulo */}
+                <CardBlock title="seguro"></CardBlock>
+            </CardGrid>
+            {
+                Object.keys(insurance).map((element) =>//bucle de inputs 
+                    <InfoEdit key={element} input={element} type="insurance" title={element} dataState={dataState} setData={setData} />
+                )
+            }
+
+
+            <CardGrid>{/* titulo */}
+                <CardBlock title="acudiente"></CardBlock>
+            </CardGrid>
+            {
+                Object.keys(attender).map((element) =>//bucle de inputs 
+                    <InfoEdit key={element} input={element} type="attender" title={element} dataState={dataState} setData={setData} />
                 )
             }
 

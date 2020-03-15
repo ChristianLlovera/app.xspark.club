@@ -1,12 +1,18 @@
 import React from 'react'
-import { useHistory } from "react-router-dom";
+import tras from '../../Utils/translate'
+import { useHistory } from "react-router-dom"
+import { useStore } from '../../Store/useStore'
 import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
+import trans from '../../Utils/translate'
 
 const Profile = props => {
 
     const history = useHistory();
+    const { getPlayer } = useStore()
+
+    const { info, physical, technical, attender, insurance, observation } = getPlayer()
 
     return (
 
@@ -14,59 +20,46 @@ const Profile = props => {
             <CardProfileHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/")} />}
                 buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/edit-profile")} />}
-                name="Juan Vicente"
-                lastName="Rojas Martin"
-                birthdate="14/12/2011"
-                doc="15678223445"
-                category="FÚTBOL ACADEMY"
+                name={info.name}
+                lastName={info.lastname}
+                birthdate={info.birthdate}
+                doc={info.document}
+                category={info.academy}
                 img="url"
-                ranking={7}
+                ranking={info.ranking}
             />
 
             <CardGrid two>
                 <CardBlock>
-                    <Input title="Director Deportivo" data="Nombre Director" type="read" />
+                    <Input title="Director Deportivo" data={info.director} type="read" />
                 </CardBlock>
                 <CardBlock>
-                    <Input title="Entrenador" data="Nombre Entrenador" type="read" />
+                    <Input title="Entrenador" data={info.coach} type="read" />
                 </CardBlock>
             </CardGrid>
 
-
             <CardGrid two>
                 <CardBlock title="FÍSICO">
-                    <Input type="ranking-read" data={7} title="velocidad" />
-                    <Input type="ranking-read" data={5} title="agilidad" />
-                    <Input type="ranking-read" data={4} title="fuerza" />
-                    <Input type="ranking-read" data={6} title="resistencia" />
-                    <Input type="ranking-read" data={9} title="coordinación" />
+                    {Object.keys(physical).map((element, key) => <Input key={key} type="ranking-read" data={physical[element]} title={trans(element)} />)}
                 </CardBlock>
                 <CardBlock title="TÉCNICO">
-                    <Input type="ranking-read" data={7} title="conducción" />
-                    <Input type="ranking-read" data={5} title="regate" />
-                    <Input type="ranking-read" data={3} title="tiro" />
-                    <Input type="ranking-read" data={2} title="pase" />
-                    <Input type="ranking-read" data={8} title="control" />
+                    {Object.keys(technical).map((element, key) => <Input key={key} type="ranking-read" data={technical[element]} title={trans(element)} />)}
                 </CardBlock>
             </CardGrid>
 
             <CardGrid>
                 <CardBlock title="Observaciones">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat autem corrupti quisquam veniam excepturi velit, culpa perferendis adipisci nobis dolorum animi dicta laborum necessitatibus. Architecto harum cupiditate quasi totam sapiente!</p>
+                    <p>{observation}</p>
                 </CardBlock>
             </CardGrid>
 
+
             <CardGrid two>
                 <CardBlock title="Acudiente">
-                    <Input title="Nombre" data="Juan Rojas" type="read" />
-                    <Input title="Doc" data="23432234" type="read" />
-                    <Input title="Mail" data="juancrojasmartin@hotmil.com" type="read" />
-                    <Input title="Télefono" data="6270 3312" type="read" />
-                    <Input title="Télefono Emergencia" data="6270 3312" type="read" />
+                    {Object.keys(attender).map((element, key) => <Input key={key} type="read" data={attender[element]} title={trans(element)} />)}
                 </CardBlock>
                 <CardBlock title="Seguro">
-                    <Input title="Compañia" data="Seguros No Name" type="read" />
-                    <Input title="Número" data="049938432" type="read" />
+                    {Object.keys(insurance).map((element, key) => <Input key={key} type="read" data={insurance[element]} title={trans(element)} />)}
                 </CardBlock>
             </CardGrid>
 

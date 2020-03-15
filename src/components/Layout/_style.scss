@@ -15,6 +15,15 @@
     box-sizing: border-box;
 }
 
+input {
+    width: 100%;
+    border: 0px;
+
+    &::placeholder {
+        color: $light-gray
+    }
+}
+
 html,
 body {
     position: relative;
