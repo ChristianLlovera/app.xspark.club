@@ -58,6 +58,29 @@
                 background-position: center;
             }
 
+            &>.number {
+                display: flex;
+                position: absolute;
+                bottom: 90px;
+                right: -50px;
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+                background-color: white;
+                color: $gray;
+                border: 1px solid $light-gray;
+                align-items: center;
+                justify-content: center;
+                font-size: 25px;
+                letter-spacing: -4px;
+                font-weight: 900;
+
+                &>span {
+                    margin-left: -5px;
+                }
+            }
+
+
             &>h1 {
                 color: inherit;
                 font-family: inherit;
@@ -125,7 +148,7 @@
             }
 
             &>p {
-                font-size: 12px;
+                font-size: 13px;
                 padding: 10px;
                 padding-top: 0px;
                 margin: 0px;

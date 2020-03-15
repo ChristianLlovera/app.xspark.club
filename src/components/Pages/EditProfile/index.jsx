@@ -11,6 +11,7 @@ const model = {//modelo de datos
         birthdate: '14/12/2011',
         document: '102030405',
         academy: 'FÚTBOL ACADEMY',
+        number: 10,
         director: 'Nombre del director',
         coach: 'Nombre del entrenador',
         ranking: 7
@@ -43,8 +44,8 @@ const model = {//modelo de datos
     }
 }
 
-const RankingEdit = props => {//todos los inputs de ranking para un bucle
-    const { input, type, title, dataState, setData } = props
+const InputRanking = props => {//todos los inputs de ranking para un bucle
+    const { input, type, dataState, setData } = props
 
     const plus = () => {
         const value = dataState[type][input]
@@ -61,7 +62,7 @@ const RankingEdit = props => {//todos los inputs de ranking para un bucle
     return (
         <CardGrid two>
             <CardBlock>
-                <Input type="ranking-edit" title={title} data={dataState[type][input]}
+                <Input type="ranking-edit" title={input} data={dataState[type][input]}
                     plusAction={() => plus(input)}
                     lessAction={() => less(input)} />
             </CardBlock>
@@ -69,11 +70,9 @@ const RankingEdit = props => {//todos los inputs de ranking para un bucle
     )
 }
 
-const InfoEdit = props => {
+const InputText = props => {
 
-    const { input, type, title, dataState, setData } = props
-
-    if (input == 'ranking') { return false } //si es el ranking no lo muestra
+    const { input, type, dataState, setData } = props
 
     const handlerkey = e => {
         dataState[type][input] = e.target.value
@@ -81,15 +80,11 @@ const InfoEdit = props => {
     }
 
     return (
-        <CardGrid two>
-            <CardBlock>
-                <Input type="text"
-                    title={title}
-                    placeholder='Escribe Un Nombre'
-                    data={dataState[type][input]}
-                    onChange={e => handlerkey(e)} />
-            </CardBlock>
-        </CardGrid>
+        <Input type="text"
+            title={input}
+            placeholder='Escribe Un Nombre'
+            data={dataState[type][input]}
+            onChange={e => handlerkey(e)} />
     )
 }
 
@@ -99,7 +94,9 @@ const EditProfile = props => {//pagina de edicion de perfiles
     const history = useHistory();//para direccionar con react router history.push("/destino")
     const [data, setData] = useState([model])
     const [dataState] = data
-    const { info, physical, technical, insurance, attender } = dataState
+    const { physical, technical, insurance, attender } = dataState
+    const args = { dataState, setData }
+
 
     return (
 
@@ -111,31 +108,40 @@ const EditProfile = props => {//pagina de edicion de perfiles
 
 
             <CardGrid>{/* titulo */}
-                <CardBlock title="información"></CardBlock>
+                <CardBlock title="información" />
             </CardGrid>
-            {
-                Object.keys(info).map((element) =>//bucle de inputs 
-                    <InfoEdit key={element} input={element} type="info" title={element} dataState={dataState} setData={setData} />
-                )
-            }
-
-
             <CardGrid two>
+                <CardBlock>
+                    <InputText type="info" input="name"  {...args} />
+                    <InputText type="info" input="birthdate"  {...args} />
+                    <InputText type="info" input="academy"  {...args} />
+                    <InputText type="info" input="coach"  {...args} />
+                </CardBlock >
+                <CardBlock>
+                    <InputText type="info" input="lastname"  {...args} />
+                    <InputText type="info" input="document"  {...args} />
+                    <InputText type="info" input="number"  {...args} />
+                    <InputText type="info" input="director"  {...args} />
+                </CardBlock >
+            </CardGrid >
+
+
+            <CardGrid>
                 <CardBlock>
                     <Input type="read" title='observación' data={dataState['observation']} />
                 </CardBlock>
             </CardGrid>
 
 
-            <RankingEdit input="ranking" type="info" title="puntuación" dataState={dataState} setData={setData} />
+            <InputRanking input="ranking" type="info" {...args} />
 
 
             <CardGrid>{/* titulo */}
                 <CardBlock title="Físico"></CardBlock>
             </CardGrid>
             {
-                Object.keys(physical).map((element) => //bucle de inputs
-                    <RankingEdit key={element} input={element} type="physical" title={element} dataState={dataState} setData={setData} />
+                Object.keys(physical).map((element, key) => //bucle de inputs
+                    <InputRanking key={key} type="physical" input={element} {...args} />
                 )
             }
 
@@ -144,30 +150,38 @@ const EditProfile = props => {//pagina de edicion de perfiles
                 <CardBlock title="Técnico"></CardBlock>
             </CardGrid>
             {
-                Object.keys(technical).map((element) =>//bucle de inpues
-                    <RankingEdit key={element} input={element} type="technical" title={element} dataState={dataState} setData={setData} />
+                Object.keys(technical).map((element, key) =>//bucle de inpues
+                    <InputRanking key={key} type="technical" input={element} {...args} />
                 )
             }
 
 
             <CardGrid>{/* titulo */}
-                <CardBlock title="seguro"></CardBlock>
+                <CardBlock title="seguro" />
             </CardGrid>
-            {
-                Object.keys(insurance).map((element) =>//bucle de inputs 
-                    <InfoEdit key={element} input={element} type="insurance" title={element} dataState={dataState} setData={setData} />
-                )
-            }
+            <CardGrid two>{/* titulo */}
+                <CardBlock>
+                    <InputText type="insurance" input='company' {...args} />
+                </CardBlock>
+                <CardBlock>
+                    <InputText type="insurance" input='number'  {...args} />
+                </CardBlock>
+            </CardGrid>
 
 
             <CardGrid>{/* titulo */}
-                <CardBlock title="acudiente"></CardBlock>
+                <CardBlock title="acudiente" />
             </CardGrid>
-            {
-                Object.keys(attender).map((element) =>//bucle de inputs 
-                    <InfoEdit key={element} input={element} type="attender" title={element} dataState={dataState} setData={setData} />
-                )
-            }
+            <CardGrid two>{/* titulo */}
+                <CardBlock>
+                    <InputText type="attender" input="name"  {...args} />
+                    <InputText type="attender" input="phone"  {...args} />
+                </CardBlock>
+                <CardBlock>
+                    <InputText type="attender" input="document"  {...args} />
+                    <InputText type="attender" input="emergency"  {...args} />
+                </CardBlock>
+            </CardGrid>
 
         </Card >
 

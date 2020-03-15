@@ -9,6 +9,7 @@ const structure = {
             birthdate: '14/12/2011',
             document: '102030405',
             academy: 'FÚTBOL ACADEMY',
+            number: '07',
             director: 'Nombre del director',
             coach: 'Nombre del entrenador',
             ranking: 7

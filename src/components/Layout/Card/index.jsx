@@ -62,7 +62,17 @@ export const CardTitleHeader = props => {
 
 export const CardProfileHeader = props => {
 
-    const { buttonLeft, buttonRight, name, lastName, doc, birthdate, category, ranking, img } = props
+    const {
+        buttonLeft,
+        buttonRight,
+        name,
+        lastName,
+        doc,
+        birthdate,
+        category,
+        number,
+        ranking,
+        img } = props
 
     return (
         <header type="profile">
@@ -87,6 +97,7 @@ export const CardProfileHeader = props => {
                 {birthdate && <span>{birthdate} - 8 años</span>}
                 {category && <span className="orange">- {category} -</span>}
                 {img && <div className="img"></div>}
+                {number && <div className="number"> <span>{number}</span> </div>}
                 {ranking && <Input type="ranking-read" data={ranking} title="puntuación" />}
             </div>
         </header>

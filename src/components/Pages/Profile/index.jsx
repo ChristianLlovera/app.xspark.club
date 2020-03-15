@@ -25,9 +25,11 @@ const Profile = props => {
                 birthdate={info.birthdate}
                 doc={info.document}
                 category={info.academy}
+                number={info.number}
                 img="url"
                 ranking={info.ranking}
             />
+
 
             <CardGrid two>
                 <CardBlock>
@@ -38,6 +40,7 @@ const Profile = props => {
                 </CardBlock>
             </CardGrid>
 
+
             <CardGrid two>
                 <CardBlock title="FÍSICO">
                     {Object.keys(physical).map((element, key) => <Input key={key} type="ranking-read" data={physical[element]} title={trans(element)} />)}
@@ -47,6 +50,7 @@ const Profile = props => {
                 </CardBlock>
             </CardGrid>
 
+
             <CardGrid>
                 <CardBlock title="Observaciones">
                     <p>{observation}</p>
@@ -54,12 +58,31 @@ const Profile = props => {
             </CardGrid>
 
 
+            <CardGrid>
+                <CardBlock title="Seguro" />
+            </CardGrid>
             <CardGrid two>
-                <CardBlock title="Acudiente">
-                    {Object.keys(attender).map((element, key) => <Input key={key} type="read" data={attender[element]} title={trans(element)} />)}
+                <CardBlock >
+                    <Input type="read" data={insurance.company} title="company" />
                 </CardBlock>
-                <CardBlock title="Seguro">
-                    {Object.keys(insurance).map((element, key) => <Input key={key} type="read" data={insurance[element]} title={trans(element)} />)}
+                <CardBlock >
+                    <Input type="read" data={insurance.number} title="number" />
+                </CardBlock>
+            </CardGrid>
+
+
+            <CardGrid>
+                <CardBlock title="Acudiente" />
+            </CardGrid>
+            <CardGrid two>
+                <CardBlock>
+                    <Input type="read" data={attender.name} title="name" />
+                    <Input type="read" data={attender.phone} title="phone" />
+                    <Input type="read" data={attender.mail} title="mail" />
+                </CardBlock>
+                <CardBlock>
+                    <Input type="read" data={attender.document} title="document" />
+                    <Input type="read" data={attender.emergency} title="emergency" />
                 </CardBlock>
             </CardGrid>
 
