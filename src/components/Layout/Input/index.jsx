@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import IconButton from '../IconButton'
 import trans from '../../Utils/translate'
+import nl2br from 'react-nl2br'
+import autosize from 'autosize'
 
 
 if (process.env.WEBPACK) { require('./_style.scss') }
 
+export const inputValue = name => {
+
+    const input = document.querySelector(`[name=${name}]`)
+
+    return input ? input.dataset.value : false
+
+}
 
 const Read = props => {
 
     const { title, data } = props
+
     return (
         <div className="input">
             <div className="title">
@@ -22,30 +32,41 @@ const Read = props => {
 
 const Ranking = props => {
 
-    const { data, title, type, plus, less } = props
+    const { data, title, type, name, onChange } = props
+    const [value, setValue] = useState(data)
     const items = []
 
+    const handlerPlus = () => {//acción de subir cantidad
+        onChange ? onChange() : null
+        value < 10 ? setValue(parseInt(value) + 1) : null
+    }
+
+    const handlerLess = () => {//acción de bajar cantidad
+        onChange ? onChange() : null
+        value > 0 ? setValue(parseInt(value) - 1) : null
+    }
+
     for (let i = 0; i < 10; i++) {
-        items.push(<div key={i} className={data >= (i + 1) ? "bar active" : "bar"} />)
+        items.push(<div key={i} className={value >= (i + 1) ? "bar active" : "bar"} />)
     }
 
     return (
-        <div className="ranking" type={type}>
+        <div className="ranking" type={type} name={name} data-value={value} >
             {type == "edit" &&
                 <span className="rank-button less-button">
-                    <IconButton type="border" radio={30} icon="less" onClick={() => data > 0 ? less() : null} />
+                    <IconButton type="border" radio={30} icon="less" onClick={() => handlerLess()} />
                 </span>
             }
 
             {type == "edit" &&
                 <span className="rank-button plus-button">
-                    <IconButton type="border" radio={30} icon="plus" onClick={() => data < 10 ? plus() : null} />
+                    <IconButton type="border" radio={30} icon="plus" onClick={() => handlerPlus()} />
                 </span>
             }
 
             <div className="title">
                 <span>{trans(title)}</span>
-                <span>{data}/10</span>
+                <span>{value}/10</span>
             </div>
             <div className="items">{items}</div>
         </div>
@@ -54,30 +75,109 @@ const Ranking = props => {
 
 const Text = props => {
 
-    const { title, data, placeholder, onChange } = props
+    const { title, name, data, placeholder, onChange } = props
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`input[name=${name}]`)
+        input.dataset.value = input.value
+    }
+
+    useEffect(() => {
+        const input = document.querySelector(`input[name=${name}]`)
+        input.dataset.value = data
+        input.value = data
+    }, [])
 
     return (
         <div className="input">
             <div className="title">
                 <span>{trans(title)}</span>
             </div>
-            <input type="text" value={data} placeholder={placeholder} onChange={e => onChange(e)} />
+            <input type="text" name={name} placeholder={placeholder} onChange={() => handleChange()} data-value />
         </div>
     )
 
 }
 
-const Input = props => {
+const Date = props => {
 
-    const { title, data, type, placeholder, onChange, plusAction, lessAction } = props
+    const { title, name, data, placeholder, onChange } = props
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`input[name=${name}]`)
+
+        const date = input.value.split('-')
+        input.dataset.value = `${date[2]}/${date[1]}/${date[0]}`
+
+    }
+
+    useEffect(() => {
+        const input = document.querySelector(`input[name=${name}]`)
+
+        const date = data.split('/')
+        input.dataset.value = `${date[2]}-${date[1]}-${date[0]}`
+        input.value = `${date[2]}-${date[1]}-${date[0]}`
+
+    }, [])
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+            <input type="date" name={name} onChange={() => handleChange()} data-value />
+        </div>
+    )
+
+}
+
+const TextArea = props => {
+
+    const { title, name, data, placeholder, onChange } = props
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`[name=${name}]`)
+        input.dataset.value = input.value
+    }
+
+    useEffect(() => {
+        const input = document.querySelector(`[name=${name}]`)
+        input.value = data
+        input.dataset.value = data
+        autosize(input)
+    }, [])
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+            <textarea
+                name={name}
+                placeholder={placeholder}
+                onChange={() => handleChange()}
+                data-value />
+        </div>
+    )
+
+}
+
+export const Input = props => {
+
+    const { title, data, type, placeholder, name, onChange } = props
 
     return (
 
         <>
             {type == "read" && <Read title={title} data={data} />}
-            {type == "text" && <Text title={title} onChange={onChange} data={data} placeholder={placeholder} />}
+            {type == "text" && <Text title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "date" && <Date title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "text-area" && <TextArea title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
             {type == "ranking-read" && <Ranking type="read" title={title} data={data} />}
-            {type == "ranking-edit" && <Ranking type="edit" title={title} data={data} plus={plusAction} less={lessAction} />}
+            {type == "ranking-edit" && <Ranking type="edit" title={title} name={name} data={data} onChange={onChange} />}
         </>
 
     )

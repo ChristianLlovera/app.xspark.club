@@ -16,6 +16,13 @@
         z-index: 1;
     }
 
+    &[type='active'] {
+        &>i {
+            background-color: $orange;
+        }
+
+    }
+
     &[type='border'] {
         border: 1px solid $light-gray;
     }

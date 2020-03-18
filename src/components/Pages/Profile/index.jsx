@@ -6,6 +6,7 @@ import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import trans from '../../Utils/translate'
+import nl2br from 'react-nl2br'
 
 const Profile = props => {
 
@@ -53,7 +54,7 @@ const Profile = props => {
 
             <CardGrid>
                 <CardBlock title="Observaciones">
-                    <p>{observation}</p>
+                    <p>{nl2br(observation)}</p>
                 </CardBlock>
             </CardGrid>
 

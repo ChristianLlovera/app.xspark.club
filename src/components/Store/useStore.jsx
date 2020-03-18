@@ -6,17 +6,23 @@ export const useStore = () => {
     const [Store, setStore] = useContext(StoreContext)
     const [State] = Store
 
-    const getStore = () => State
-
-    const getMenu = () => State.menu
+    const getMenu = () => {
+        const state = { ...State }
+        const { menu } = state
+        return menu
+    }
 
     const setMenu = data => {
-        const status = State.menu
-        State.menu = !status
+        const menu = getMenu()
+        State.menu = !menu
         setStore([State])
     }
 
-    const getPlayer = () => State.player
+    const getPlayer = () => {
+        const { player } = State
+        const result = { ...player }
+        return result
+    }
 
     const setPlayer = data => {
         State.player = data
@@ -26,7 +32,6 @@ export const useStore = () => {
     return {
         getPlayer,
         setPlayer,
-        getStore,
         getMenu,
         setMenu
     }
