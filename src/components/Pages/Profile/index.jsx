@@ -1,11 +1,11 @@
 import React from 'react'
-import tras from '../../Utils/translate'
 import { useHistory } from "react-router-dom"
 import { useStore } from '../../Store/useStore'
 import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import trans from '../../Utils/translate'
+import average from '../../Utils/average'
 import nl2br from 'react-nl2br'
 
 const Profile = props => {
@@ -28,7 +28,7 @@ const Profile = props => {
                 category={info.academy}
                 number={info.number}
                 img="url"
-                ranking={info.ranking}
+                ranking={average({ physical, technical })}
             />
 
 

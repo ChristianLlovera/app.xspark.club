@@ -2654,6 +2654,9 @@ body {
 input {
   background-color: transparent; }
 
+.none {
+  width: var(--bar-width); }
+
 .input {
   width: 100%;
   height: auto;
@@ -2720,8 +2723,18 @@ input {
       width: 9%;
       height: 10px;
       background-color: rgba(128, 128, 128, 0.2); }
-    .ranking > .items > .active {
-      background-color: #FC4C02; }
+      .ranking > .items > .bar:after {
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        content: "";
+        display: block;
+        width: var(--bar-decimal);
+        height: 100%;
+        background-color: #FC4C02; }
+    .ranking > .items > .active:after {
+      width: 100%; }
+    .ranking > .items > .decimal:after {
+      width: var(--bar-decimal); }
 
 .card {
   min-width: 350px;

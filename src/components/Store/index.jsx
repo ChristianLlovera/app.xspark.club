@@ -11,21 +11,20 @@ const structure = {
             academy: 'FÚTBOL ACADEMY',
             number: '07',
             director: 'Nombre del director',
-            coach: 'Nombre del entrenador',
-            ranking: 7
+            coach: 'Nombre del entrenador'
         },
         physical: {
-            speed: 5,
-            agility: 3,
-            strength: 2,
-            resistance: 7,
-            coordination: 9
+            speed: 3,
+            agility: 2,
+            strength: 7,
+            resistance: 9,
+            coordination: 4
         },
         technical: {
-            driving: 4,
-            dodge: 3,
-            shot: 8,
-            pass: 2,
+            driving: 8,
+            dodge: 5,
+            shot: 3,
+            pass: 7,
             control: 4
         },
         observation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',

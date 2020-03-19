@@ -12,22 +12,21 @@ export const handlerSaveProfile = (setPlayer, profile) => {
             academy: inputValue('info-academy'),
             number: inputValue('info-number'),
             director: inputValue('info-director'),
-            coach: inputValue('info-coach'),
-            ranking: inputValue('info-ranking')
+            coach: inputValue('info-coach')
         },
         physical: {
-            speed: inputValue('physical-speed'),
-            agility: inputValue('physical-agility'),
-            strength: inputValue('physical-strength'),
-            resistance: inputValue('physical-resistance'),
-            coordination: inputValue('physical-coordination')
+            speed: parseInt(inputValue('physical-speed')),
+            agility: parseInt(inputValue('physical-agility')),
+            strength: parseInt(inputValue('physical-strength')),
+            resistance: parseInt(inputValue('physical-resistance')),
+            coordination: parseInt(inputValue('physical-coordination'))
         },
         technical: {
-            driving: inputValue('technical-driving'),
-            dodge: inputValue('technical-dodge'),
-            shot: inputValue('technical-shot'),
-            pass: inputValue('technical-pass'),
-            control: inputValue('technical-control')
+            driving: parseInt(inputValue('technical-driving')),
+            dodge: parseInt(inputValue('technical-dodge')),
+            shot: parseInt(inputValue('technical-shot')),
+            pass: parseInt(inputValue('technical-pass')),
+            control: parseInt(inputValue('technical-control'))
         },
         observation: inputValue('observation') ? inputValue('observation') : profile.observation,
         insurance: {
@@ -42,6 +41,7 @@ export const handlerSaveProfile = (setPlayer, profile) => {
             emergency: inputValue('attender-emergency')
         }
     }
+
 
     setPlayer(structure)
 

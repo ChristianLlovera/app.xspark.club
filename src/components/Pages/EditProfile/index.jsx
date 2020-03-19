@@ -104,8 +104,6 @@ const EditProfile = () => {//pagina de edicion de perfiles
             </CardGrid>
 
 
-            <InputRanking type="info" input="ranking" profile={profile} onChange={() => handlerChange()} />
-
 
             <CardGrid>{/* titulo */}
                 <CardBlock title="Físico"></CardBlock>

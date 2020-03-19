@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import Input from '../Input'
 
 if (process.env.WEBPACK) { require('./_style.scss') }
@@ -90,11 +91,12 @@ export const CardProfileHeader = props => {
             }
 
 
+
             <div className="info">
                 {name && <h1>{name}</h1>}
                 {lastName && <h2>{lastName}</h2>}
                 {doc && <span>DOC - {doc}</span>}
-                {birthdate && <span>{birthdate} - 8 años</span>}
+                {birthdate && <span>{birthdate} - {moment().diff(moment(birthdate, 'DD/MM/YYYY'), "years")} años</span>}
                 {category && <span className="orange">- {category} -</span>}
                 {img && <div className="img"></div>}
                 {number && <div className="number"> <span>{number}</span> </div>}

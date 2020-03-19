@@ -33,7 +33,7 @@ const Read = props => {
 const Ranking = props => {
 
     const { data, title, type, name, onChange } = props
-    const [value, setValue] = useState(data)
+    const [value, setValue] = useState(Number(data))
     const items = []
 
     const handlerPlus = () => {//acción de subir cantidad
@@ -46,9 +46,33 @@ const Ranking = props => {
         value > 0 ? setValue(parseInt(value) - 1) : null
     }
 
-    for (let i = 0; i < 10; i++) {
-        items.push(<div key={i} className={value >= (i + 1) ? "bar active" : "bar"} />)
+    const percentage = (value, index) => {
+
+        let result = 0
+
+        if (value >= (index + 1)) {
+            result = 100
+        }
+
+        if (!Number.isInteger(value)) {
+            const split = String(value).split('.')
+            const int = Number(split[0])
+            const flt = Number(split[1])
+            if (index == int) {
+                result = flt * 10
+            }
+        }
+
+        return `${result}%`
+
     }
+
+
+    for (let i = 0; i < 10; i++) {
+        const style = { '--bar-decimal': percentage(value, i) }
+        items.push(<div key={i} className={"bar"} style={style} />)
+    }
+
 
     return (
         <div className="ranking" type={type} name={name} data-value={value} >
@@ -66,7 +90,7 @@ const Ranking = props => {
 
             <div className="title">
                 <span>{trans(title)}</span>
-                <span>{value}/10</span>
+                <span>{value ? value : 0}/10</span>
             </div>
             <div className="items">{items}</div>
         </div>
