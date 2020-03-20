@@ -109,7 +109,6 @@ const Text = props => {
 
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
-        input.dataset.value = data
         input.value = data
     }, [])
 
@@ -118,7 +117,56 @@ const Text = props => {
             <div className="title">
                 <span>{trans(title)}</span>
             </div>
-            <input type="text" name={name} placeholder={placeholder} onChange={() => handleChange()} data-value />
+            <input type="text" name={name}
+                placeholder={placeholder}
+                onChange={() => handleChange()}
+                data-value={data} />
+        </div>
+    )
+
+}
+
+
+const Num = props => {
+
+    const { title, name, data, placeholder, onChange } = props
+
+
+
+    const handlerKey = e => {
+        const isNumber = /^[0-9]/g
+
+        if (e.key != 'Backspace') {
+            if (!isNumber.test(e.key)) {
+                e.preventDefault()
+            }
+        }
+
+    }
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`input[name=${name}]`)
+        input.dataset.value = Number(input.value)
+    }
+
+    useEffect(() => {
+        const input = document.querySelector(`input[name=${name}]`)
+        input.value = Number(data)
+    }, [])
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+            <input type="number"
+                autoComplete='new-number'
+                name={name}
+                placeholder={placeholder}
+                onKeyDown={e => handlerKey(e)}
+                onChange={() => handleChange()}
+                data-value={data} />
         </div>
     )
 
@@ -126,7 +174,7 @@ const Text = props => {
 
 const Date = props => {
 
-    const { title, name, data, placeholder, onChange } = props
+    const { title, name, data, onChange } = props
 
     const handleChange = () => {
         onChange ? onChange() : null
@@ -139,11 +187,8 @@ const Date = props => {
 
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
-
         const date = data.split('/')
-        input.dataset.value = `${date[2]}-${date[1]}-${date[0]}`
         input.value = `${date[2]}-${date[1]}-${date[0]}`
-
     }, [])
 
     return (
@@ -151,7 +196,7 @@ const Date = props => {
             <div className="title">
                 <span>{trans(title)}</span>
             </div>
-            <input type="date" name={name} onChange={() => handleChange()} data-value />
+            <input type="date" name={name} onChange={() => handleChange()} data-value={data} />
         </div>
     )
 
@@ -170,7 +215,6 @@ const TextArea = props => {
     useEffect(() => {
         const input = document.querySelector(`[name=${name}]`)
         input.value = data
-        input.dataset.value = data
         autosize(input)
     }, [])
 
@@ -183,7 +227,33 @@ const TextArea = props => {
                 name={name}
                 placeholder={placeholder}
                 onChange={() => handleChange()}
-                data-value />
+                data-value={data} />
+        </div>
+    )
+
+}
+
+const List = props => {
+
+    const { title, name, data, options, placeholder, onChange } = props
+
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`[name=${name}]`)
+        input.dataset.value = input.value
+    }
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+
+            <select name={name} defaultValue={data} onChange={() => handleChange()} data-value={data}>
+                <option value=''>--{placeholder}--</option>
+                {options.map((element, key) => <option key={key} value={element.value}>{element.name}</option>)}
+            </select>
         </div>
     )
 
@@ -191,15 +261,17 @@ const TextArea = props => {
 
 export const Input = props => {
 
-    const { title, data, type, placeholder, name, onChange } = props
+    const { title, data, options, type, placeholder, name, onChange } = props
 
     return (
 
         <>
             {type == "read" && <Read title={title} data={data} />}
             {type == "text" && <Text title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
-            {type == "date" && <Date title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "number" && <Num title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "date" && <Date title={title} name={name} data={data} onChange={onChange} />}
             {type == "text-area" && <TextArea title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "list" && <List title={title} name={name} data={data} options={options} onChange={onChange} placeholder={placeholder} />}
             {type == "ranking-read" && <Ranking type="read" title={title} data={data} />}
             {type == "ranking-edit" && <Ranking type="edit" title={title} name={name} data={data} onChange={onChange} />}
         </>

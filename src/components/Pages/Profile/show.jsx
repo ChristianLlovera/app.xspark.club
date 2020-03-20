@@ -20,7 +20,7 @@ const Profile = props => {
         <Card>
             <CardProfileHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/")} />}
-                buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/edit-profile")} />}
+                buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/profile-edit")} />}
                 name={info.name}
                 lastName={info.lastname}
                 birthdate={info.birthdate}

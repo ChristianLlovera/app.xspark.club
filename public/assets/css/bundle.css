@@ -75,7 +75,7 @@ i {
       cursor: pointer;
       width: 65px;
       height: 65px; }
-      .menu > header > .menu-button > icon {
+      .menu > header > .menu-button > i {
         width: 20px;
         height: 20px;
         background-color: #b5b5b5; }
@@ -2654,8 +2654,20 @@ body {
 input {
   background-color: transparent; }
 
-.none {
-  width: var(--bar-width); }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield; }
+
+select {
+  width: 100%;
+  height: auto;
+  border: 0px;
+  background-color: transparent; }
 
 .input {
   width: 100%;

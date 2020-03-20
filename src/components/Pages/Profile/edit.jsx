@@ -46,6 +46,63 @@ const InputDate = props => {
     )
 }
 
+const InputNumber = props => {
+
+    const { input, type, profile, onChange } = props
+
+    return (
+        <Input type="number"
+            onChange={onChange}
+            title={input}
+            name={`${type}-${input}`}
+            data={profile[type][input]} />
+    )
+}
+
+const InputListCoach = props => {
+
+    const { input, type, profile, onChange } = props
+
+    const coachs = [
+        { value: 'entrenador1', name: 'entrenador1' },
+        { value: 'entrenador2', name: 'entrenador2' },
+        { value: 'entrenador3', name: 'entrenador3' },
+        { value: 'entrenador4', name: 'entrenador4' }
+    ]
+
+    return (
+        <Input type="list"
+            onChange={onChange}
+            title={input}
+            name={`${type}-${input}`}
+            placeholder='Selecciona una Opción'
+            data={profile[type][input]}
+            options={coachs} />
+    )
+}
+
+const InputListDirector = props => {
+
+    const { input, type, profile, onChange } = props
+
+    const directors = [
+        { value: 'director1', name: 'director1' },
+        { value: 'director2', name: 'director2' },
+        { value: 'director3', name: 'director3' },
+        { value: 'director4', name: 'director4' }
+    ]
+
+    return (
+        <Input type="list"
+            onChange={onChange}
+            title={input}
+            name={`${type}-${input}`}
+            placeholder='Selecciona una Opción'
+            data={profile[type][input]}
+            options={directors} />
+    )
+}
+
 
 const EditProfile = () => {//pagina de edicion de perfiles
 
@@ -68,10 +125,11 @@ const EditProfile = () => {//pagina de edicion de perfiles
 
         <Card>
             <CardTitleHeader
-                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile")} />}
+                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile-show")} />}
                 buttonRight={<IconButton type={changes} radio={50} icon="save" onClick={() => handlerSave()} />}
                 title="Editar datos"
             />{/* header */}
+
 
             <CardGrid>{/* titulo */}
                 <CardBlock title="información" />
@@ -81,13 +139,13 @@ const EditProfile = () => {//pagina de edicion de perfiles
                     <InputText type="info" input="name" profile={profile} onChange={() => handlerChange()} />
                     <InputDate type="info" input="birthdate" profile={profile} onChange={() => handlerChange()} />
                     <InputText type="info" input="academy" profile={profile} onChange={() => handlerChange()} />
-                    <InputText type="info" input="director" profile={profile} onChange={() => handlerChange()} />
+                    <InputListDirector type="info" input="director" profile={profile} onChange={() => handlerChange()} />
                 </CardBlock >
                 <CardBlock>
                     <InputText type="info" input="lastname" profile={profile} onChange={() => handlerChange()} />
                     <InputText type="info" input="document" profile={profile} onChange={() => handlerChange()} />
-                    <InputText type="info" input="number" profile={profile} onChange={() => handlerChange()} />
-                    <InputText type="info" input="coach" profile={profile} onChange={() => handlerChange()} />
+                    <InputNumber type="info" input="number" profile={profile} onChange={() => handlerChange()} />
+                    <InputListCoach type="info" input="coach" profile={profile} onChange={() => handlerChange()} />
                 </CardBlock >
             </CardGrid >
 
@@ -130,10 +188,10 @@ const EditProfile = () => {//pagina de edicion de perfiles
             </CardGrid>
             <CardGrid two>{/* titulo */}
                 <CardBlock>
-                    <InputText type="insurance" input='company' profile={profile} />
+                    <InputText type="insurance" input='company' profile={profile} onChange={() => handlerChange()} />
                 </CardBlock>
                 <CardBlock>
-                    <InputText type="insurance" input='number' profile={profile} />
+                    <InputNumber type="insurance" input='number' profile={profile} onChange={() => handlerChange()} />
                 </CardBlock>
             </CardGrid>
 
@@ -143,12 +201,12 @@ const EditProfile = () => {//pagina de edicion de perfiles
             </CardGrid>
             <CardGrid two>{/* titulo */}
                 <CardBlock>
-                    <InputText type="attender" input="name" profile={profile} />
-                    <InputText type="attender" input="phone" profile={profile} />
+                    <InputText type="attender" input="name" profile={profile} onChange={() => handlerChange()} />
+                    <InputNumber type="attender" input="phone" profile={profile} onChange={() => handlerChange()} />
                 </CardBlock>
                 <CardBlock>
-                    <InputText type="attender" input="document" profile={profile} />
-                    <InputText type="attender" input="emergency" profile={profile} />
+                    <InputNumber type="attender" input="document" profile={profile} onChange={() => handlerChange()} />
+                    <InputNumber type="attender" input="emergency" profile={profile} onChange={() => handlerChange()} />
                 </CardBlock>
             </CardGrid>
 

@@ -10,8 +10,8 @@ const structure = {
             document: '102030405',
             academy: 'FÚTBOL ACADEMY',
             number: '07',
-            director: 'Nombre del director',
-            coach: 'Nombre del entrenador'
+            director: 'director4',
+            coach: 'entrenador2'
         },
         physical: {
             speed: 3,

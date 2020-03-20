@@ -16,7 +16,7 @@ const words = {//datos de traducción
     control: 'control',
     observation: 'observaciones',
     company: 'compañia',
-    number: 'numero',
+    number: 'número',
     document: 'documento',
     mail: 'correo eléctronico',
     phone: 'teléfono',
