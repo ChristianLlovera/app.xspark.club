@@ -37,11 +37,30 @@ export const CardBlock = props => {
     )
 }
 
-export const CardTitleHeader = props => {
-    const { buttonLeft, buttonRight, title } = props
+export const CardRowProfile = props => {
+
+    const { title, secondary, img, onClick } = props
+
+    const handlerClick = () => {
+        onClick ? onClick() : null
+    }
 
     return (
-        <header>
+        <div className="row-profile" onClick={() => handlerClick()}>
+            <div className="img"></div>
+            <div className="description">
+                <span>{title}</span>
+                <span type='secundary'>{secondary}</span>
+            </div>
+        </div>
+    )
+}
+
+export const CardTitleHeader = props => {
+    const { buttonLeft, buttonRight, title, type } = props
+
+    return (
+        <header type={type}>
             {buttonLeft &&
                 <div className="card-button left">
                     {buttonLeft}

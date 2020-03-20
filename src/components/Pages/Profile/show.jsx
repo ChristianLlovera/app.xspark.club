@@ -8,7 +8,7 @@ import trans from '../../Utils/translate'
 import average from '../../Utils/average'
 import nl2br from 'react-nl2br'
 
-const Profile = props => {
+const ProfileShow = props => {
 
     const history = useHistory();
     const { getPlayer } = useStore()
@@ -19,7 +19,7 @@ const Profile = props => {
 
         <Card>
             <CardProfileHeader
-                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/")} />}
+                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile-list")} />}
                 buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/profile-edit")} />}
                 name={info.name}
                 lastName={info.lastname}
@@ -93,4 +93,4 @@ const Profile = props => {
     )
 }
 
-export default Profile
+export default ProfileShow

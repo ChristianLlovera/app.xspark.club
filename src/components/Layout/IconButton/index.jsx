@@ -7,6 +7,10 @@ const IconButton = props => {
 
     const { radio, icon, onClick, type } = props
 
+    const handlerClick = () => {
+        onClick ? onClick() : null
+    }
+
     const style = {
         width: `${radio}px`,
         height: `${radio}px`
@@ -14,7 +18,7 @@ const IconButton = props => {
 
 
     return (
-        <div type={type} style={style} className="icon-button" onClick={() => onClick()}>
+        <div type={type} style={style} className="icon-button" onClick={() => handlerClick()}>
             <Icons type={icon} />
         </div>
     )

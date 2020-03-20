@@ -104,7 +104,7 @@ const InputListDirector = props => {
 }
 
 
-const EditProfile = () => {//pagina de edicion de perfiles
+const ProfileEdit = () => {//pagina de edicion de perfiles
 
     const [changes, setChanges] = useState('')
     const { getPlayer, setPlayer } = useStore()
@@ -215,4 +215,4 @@ const EditProfile = () => {//pagina de edicion de perfiles
     )
 }
 
-export default EditProfile
+export default ProfileEdit
