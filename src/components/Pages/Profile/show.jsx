@@ -1,6 +1,6 @@
 import React from 'react'
-import { useHistory } from "react-router-dom"
 import { useStore } from '../../Store/useStore'
+import { useHistory, useParams } from "react-router-dom"
 import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
@@ -10,24 +10,25 @@ import nl2br from 'react-nl2br'
 
 const ProfileShow = props => {
 
-    const history = useHistory();
-    const { getPlayer } = useStore()
+    const history = useHistory()
+    const { id } = useParams()
+    const { getProfile } = useStore()
 
-    const { info, physical, technical, attender, insurance, observation } = getPlayer()
+    const { info, physical, technical, attender, insurance, observation } = getProfile(id)
 
     return (
 
         <Card>
             <CardProfileHeader
-                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile-list")} />}
-                buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push("/profile-edit")} />}
+                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile/list")} />}
+                buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push(`/profile/edit/${id}`)} />}
                 name={info.name}
                 lastName={info.lastname}
                 birthdate={info.birthdate}
                 doc={info.document}
                 category={info.academy}
                 number={info.number}
-                img="url"
+                img={`${id}.jpg`}
                 ranking={average({ physical, technical })}
             />
 

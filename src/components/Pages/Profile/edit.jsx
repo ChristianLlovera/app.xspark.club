@@ -1,116 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom"
+import React, { useState } from 'react'
 import { useStore } from '../../Store/useStore'
-import { Input, inputValue } from '../../Layout/Input'
+import { useHistory, useParams } from "react-router-dom"
+import { Input } from '../../Layout/Input'
 import { handlerSaveProfile } from '../../Handlers/handlerProfile'
-import IconButton from '../../Layout/IconButton'
 import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
+import IconButton from '../../Layout/IconButton'
 
-
-const InputRanking = props => {//todos los inputs de ranking para un bucle
-    const { input, type, profile, onChange } = props
-
-    return (
-        <CardGrid two>
-            <CardBlock>
-                <Input type="ranking-edit" onChange={onChange} name={`${type}-${input}`} title={input} data={profile[type][input]} />
-            </CardBlock>
-        </CardGrid>
-    )
-}
-
-const InputText = props => {
-
-    const { input, type, profile, onChange } = props
-
-    return (
-        <Input type="text"
-            onChange={onChange}
-            title={input}
-            name={`${type}-${input}`}
-            placeholder='Escribe Un Nombre'
-            data={profile[type][input]} />
-    )
-}
-
-const InputDate = props => {
-
-    const { input, type, profile, onChange } = props
-
-    return (
-        <Input type="date"
-            onChange={onChange}
-            title={input}
-            name={`${type}-${input}`}
-            data={profile[type][input]} />
-    )
-}
-
-const InputNumber = props => {
-
-    const { input, type, profile, onChange } = props
-
-    return (
-        <Input type="number"
-            onChange={onChange}
-            title={input}
-            name={`${type}-${input}`}
-            data={profile[type][input]} />
-    )
-}
-
-const InputListCoach = props => {
-
-    const { input, type, profile, onChange } = props
-
-    const coachs = [
-        { value: 'entrenador1', name: 'entrenador1' },
-        { value: 'entrenador2', name: 'entrenador2' },
-        { value: 'entrenador3', name: 'entrenador3' },
-        { value: 'entrenador4', name: 'entrenador4' }
-    ]
-
-    return (
-        <Input type="list"
-            onChange={onChange}
-            title={input}
-            name={`${type}-${input}`}
-            placeholder='Selecciona una Opción'
-            data={profile[type][input]}
-            options={coachs} />
-    )
-}
-
-const InputListDirector = props => {
-
-    const { input, type, profile, onChange } = props
-
-    const directors = [
-        { value: 'director1', name: 'director1' },
-        { value: 'director2', name: 'director2' },
-        { value: 'director3', name: 'director3' },
-        { value: 'director4', name: 'director4' }
-    ]
-
-    return (
-        <Input type="list"
-            onChange={onChange}
-            title={input}
-            name={`${type}-${input}`}
-            placeholder='Selecciona una Opción'
-            data={profile[type][input]}
-            options={directors} />
-    )
-}
-
+import {
+    InputDate,
+    InputRanking,
+    InputListCoach,
+    InputListDirector,
+    InputNumber,
+    InputText
+} from './partials'
 
 const ProfileEdit = () => {//pagina de edicion de perfiles
 
     const [changes, setChanges] = useState('')
-    const { getPlayer, setPlayer } = useStore()
-    const profile = getPlayer()
+    const { getProfile, setProfile } = useStore()
+    const history = useHistory()//para direccionar con react router history.push("/destino")
+    const { id } = useParams()
+    const profile = getProfile(id)
     const { physical, technical } = profile
-    const history = useHistory();//para direccionar con react router history.push("/destino")
 
     const handlerChange = () => {
         changes == '' ? setChanges('active') : null
@@ -118,14 +30,14 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
 
     const handlerSave = () => {
         setChanges('')
-        handlerSaveProfile(setPlayer, profile)
+        handlerSaveProfile(id, setProfile, profile)
     }
 
     return (
 
         <Card>
             <CardTitleHeader
-                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile-show")} />}
+                buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push(`/profile/show/${id}`)} />}
                 buttonRight={<IconButton type={changes} radio={50} icon="save" onClick={() => handlerSave()} />}
                 title="Editar datos"
             />{/* header */}

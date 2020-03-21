@@ -45,9 +45,11 @@ export const CardRowProfile = props => {
         onClick ? onClick() : null
     }
 
+    const style = { 'backgroundImage': `url(/assets/img/profiles/${img})` }
+
     return (
         <div className="row-profile" onClick={() => handlerClick()}>
-            <div className="img"></div>
+            <div className="img" style={style}></div>
             <div className="description">
                 <span>{title}</span>
                 <span type='secundary'>{secondary}</span>
@@ -94,6 +96,8 @@ export const CardProfileHeader = props => {
         ranking,
         img } = props
 
+    const style = { 'backgroundImage': `url(/assets/img/profiles/${img})` }
+
     return (
         <header type="profile">
 
@@ -109,17 +113,15 @@ export const CardProfileHeader = props => {
                 </div>
             }
 
-
-
             <div className="info">
                 {name && <h1>{name}</h1>}
                 {lastName && <h2>{lastName}</h2>}
                 {doc && <span>DOC - {doc}</span>}
                 {birthdate && <span>{birthdate} - {moment().diff(moment(birthdate, 'DD/MM/YYYY'), "years")} años</span>}
                 {category && <span className="orange">- {category} -</span>}
-                {img && <div className="img"></div>}
+                {img && <div className="img" style={style}></div>}
                 {number && <div className="number"> <span>{number}</span> </div>}
-                {ranking && <Input type="ranking-read" data={ranking} title="puntuación" />}
+                <Input type="ranking-read" data={ranking} title="puntuación" />
             </div>
         </header>
     )

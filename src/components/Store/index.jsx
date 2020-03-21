@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const structure = {
     menu: false,
-    player: {
+    profiles: [{
         info: {
             name: 'Juan Vicente',
             lastname: 'Rojas Martin',
@@ -39,7 +39,7 @@ const structure = {
             phone: '62703312',
             emergency: '62703312'
         }
-    }
+    }]
 }
 
 export const StoreContext = React.createContext({})

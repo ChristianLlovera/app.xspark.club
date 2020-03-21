@@ -35,7 +35,7 @@ const Menu = props => {
                     <div className="logo"></div>
                 </header>
                 <div className="body scroll">
-                    <Button icon='plus' text='fichas' to="/profile-list" />
+                    <Button icon='plus' text='fichas' to="/profile/list" />
                     <Button icon='plus' text='entrenadores' to="/" />
                     <Button icon='plus' text='login' to="/" />
                 </div>

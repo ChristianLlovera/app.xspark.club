@@ -77,15 +77,15 @@ const Ranking = props => {
     return (
         <div className="ranking" type={type} name={name} data-value={value} >
             {type == "edit" &&
-                <span className="rank-button less-button">
-                    <IconButton type="border" radio={30} icon="less" onClick={() => handlerLess()} />
-                </span>
-            }
+                <>
+                    <span className="rank-button less-button">
+                        <IconButton type="border" radio={30} icon="less" onClick={() => handlerLess()} />
+                    </span>
+                    <span className="rank-button plus-button">
+                        <IconButton type="border" radio={30} icon="plus" onClick={() => handlerPlus()} />
+                    </span>
+                </>
 
-            {type == "edit" &&
-                <span className="rank-button plus-button">
-                    <IconButton type="border" radio={30} icon="plus" onClick={() => handlerPlus()} />
-                </span>
             }
 
             <div className="title">
@@ -109,7 +109,7 @@ const Text = props => {
 
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
-        input.value = data
+        if (data) { input.value = data }
     }, [])
 
     return (
@@ -152,7 +152,8 @@ const Num = props => {
 
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
-        input.value = Number(data)
+        if (data) { input.value = Number(data) }
+
     }, [])
 
     return (
@@ -188,7 +189,9 @@ const Date = props => {
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
         const date = data.split('/')
-        input.value = `${date[2]}-${date[1]}-${date[0]}`
+        if (date[2]) {
+            input.value = `${date[2]}-${date[1]}-${date[0]}`
+        }
     }, [])
 
     return (
@@ -214,7 +217,7 @@ const TextArea = props => {
 
     useEffect(() => {
         const input = document.querySelector(`[name=${name}]`)
-        input.value = data
+        if (data) { input.value = data }
         autosize(input)
     }, [])
 

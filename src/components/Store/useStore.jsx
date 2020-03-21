@@ -18,20 +18,38 @@ export const useStore = () => {
         setStore([State])
     }
 
-    const getPlayer = () => {
-        const { player } = State
-        const result = { ...player }
+    const addProfile = data => {
+        State.profiles.push({ ...data })
+        setStore([State])
+        return State.profiles.length - 1
+    }
+
+    const listProfile = () => {
+        const { profiles } = State
+        const result = [...profiles]
         return result
     }
 
-    const setPlayer = data => {
-        State.player = data
+    const getProfile = (id) => {
+        const { profiles } = State
+        if (profiles[id]) {
+            const result = { ...profiles[id] }
+            return result
+        } else {
+            return false
+        }
+    }
+
+    const setProfile = (id, data) => {
+        State.profiles[id] = data
         setStore([State])
     }
 
     return {
-        getPlayer,
-        setPlayer,
+        addProfile,
+        listProfile,
+        getProfile,
+        setProfile,
         getMenu,
         setMenu
     }
