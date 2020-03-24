@@ -1,7 +1,34 @@
 import { inputValue } from '../Layout/Input'
+import db from '../DataBase'
+
+export const handlerListProfile = (setData, setLoading) => {
+
+    db.profiles.list().then(res => {
+        setData(res.payload)
+        res.snapshot(setData)
+        setLoading(false)
+    })
 
 
-export const handlerAddProfile = (addPlayer, history) => {
+}
+
+export const handlerGetProfile = (id, setData, setLoading) => {
+
+    db.profiles.get(id).then(res => {
+        setData(res.payload)
+        res.snapshot(setData)
+        setLoading(false)
+    })
+
+}
+
+export const handlerDelProfile = id => {
+    db.profiles.delete(id).then(res => {
+        console.log('fue borrado')
+    })
+}
+
+export const handlerAddProfile = history => {
 
     const structure = {
         info: {
@@ -42,14 +69,14 @@ export const handlerAddProfile = (addPlayer, history) => {
         }
     }
 
-
-    const id = addPlayer(structure)
-    history.push(`/profile/show/${id}`)
+    db.profiles.create(structure).then(res => {
+        history.push(`/profile/show/${res.id}`)
+    })
 
 }
 
 
-export const handlerSaveProfile = (id, setPlayer, profile) => {
+export const handlerSaveProfile = (id, data, setSaving) => {
 
     const structure = {
         info: {
@@ -76,7 +103,7 @@ export const handlerSaveProfile = (id, setPlayer, profile) => {
             pass: parseInt(inputValue('technical-pass')),
             control: parseInt(inputValue('technical-control'))
         },
-        observation: inputValue('observation') ? inputValue('observation') : profile.observation,
+        observation: inputValue('observation') ? inputValue('observation') : data.observation,
         insurance: {
             company: inputValue('insurance-company'),
             number: inputValue('insurance-number'),
@@ -84,12 +111,14 @@ export const handlerSaveProfile = (id, setPlayer, profile) => {
         attender: {
             name: inputValue('attender-name'),
             document: inputValue('attender-document'),
-            mail: inputValue('atterder-mail') ? inputValue('atterder-mail') : profile.attender.mail,
+            mail: inputValue('atterder-mail') ? inputValue('atterder-mail') : data.attender.mail,
             phone: inputValue('attender-phone'),
             emergency: inputValue('attender-emergency')
         }
     }
 
+    db.profiles.update(id, structure).then(res => {
+        setSaving(false)
+    })
 
-    setPlayer(id, structure)
 }

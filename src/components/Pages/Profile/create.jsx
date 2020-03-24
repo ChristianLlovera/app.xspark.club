@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useStore } from '../../Store/useStore'
 import { useHistory } from "react-router-dom"
 import { Input } from '../../Layout/Input'
 import { handlerAddProfile } from '../../Handlers/handlerProfile'
@@ -20,7 +19,7 @@ import {
 const ProfileCreate = props => {//pagina de edicion de perfiles
 
     const [changes, setChanges] = useState('')
-    const { addProfile } = useStore()
+    const [create, setCreate] = useState(false)
     const history = useHistory()//para direccionar con react router history.push("/destino")
     const physical = ["speed", "agility", "strength", "resistance", "coordination"]
     const technical = ["driving", "dodge", "shot", "pass", "control"]
@@ -31,8 +30,11 @@ const ProfileCreate = props => {//pagina de edicion de perfiles
     }
 
     const handlerCreate = () => {
-        setChanges('')
-        handlerAddProfile(addProfile, history)
+        if (changes == 'active') {
+            setChanges('')
+            setCreate(true)
+            handlerAddProfile(history)
+        }
     }
 
     return (
@@ -40,7 +42,7 @@ const ProfileCreate = props => {//pagina de edicion de perfiles
         <Card>
             <CardTitleHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push(`/profile/list`)} />}
-                buttonRight={<IconButton type={changes} radio={50} icon="save" onClick={() => handlerCreate()} />}
+                buttonRight={<IconButton type={changes} process={create} radio={50} icon="save" onClick={() => handlerCreate()} />}
                 title="Crear Perfil"
             />{/* header */}
 

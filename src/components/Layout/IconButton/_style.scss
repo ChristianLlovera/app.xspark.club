@@ -1,4 +1,5 @@
 @import "sass/variables";
+@import "sass/mixings";
 
 .icon-button {
     cursor: pointer;
@@ -21,6 +22,21 @@
             background-color: $orange;
         }
 
+    }
+
+    &[data-process="true"] {
+
+        &:after {
+            content: "";
+            width: 80%;
+            height: 80%;
+            position: absolute;
+            border: 5px solid;
+            border-color: $light-gray;
+            border-radius: 100%;
+            border-style: inset;
+            @include rotateLeft(10s)
+        }
     }
 
     &[type='border'] {

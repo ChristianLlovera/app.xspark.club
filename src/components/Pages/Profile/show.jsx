@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStore } from '../../Store/useStore'
 import { useHistory, useParams } from "react-router-dom"
 import Input from '../../Layout/Input'
@@ -7,18 +7,41 @@ import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import trans from '../../Utils/translate'
 import average from '../../Utils/average'
 import nl2br from 'react-nl2br'
+import { handlerGetProfile } from '../../Handlers/handlerProfile'
 
 const ProfileShow = props => {
 
-    const history = useHistory()
-    const { id } = useParams()
-    const { getProfile } = useStore()
+    const empty = {
+        info: {},
+        physical: {},
+        technical: {},
+        attender: {},
+        insurance: {},
+        observation: {}
+    }
 
-    const { info, physical, technical, attender, insurance, observation } = getProfile(id)
+    const { id } = useParams()
+    const history = useHistory()
+    const [data, setData] = useState(empty)
+    const [loading, setLoading] = useState(true)
+
+    const {
+        info,
+        physical,
+        technical,
+        attender,
+        insurance,
+        observation } = data
+
+    useEffect(() => {
+        handlerGetProfile(id, setData, setLoading)
+    }, [])
+
+    const ids = 0
 
     return (
 
-        <Card>
+        <Card loader={loading}>
             <CardProfileHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile/list")} />}
                 buttonRight={<IconButton radio={50} icon="edit" onClick={() => history.push(`/profile/edit/${id}`)} />}
@@ -28,7 +51,7 @@ const ProfileShow = props => {
                 doc={info.document}
                 category={info.academy}
                 number={info.number}
-                img={`${id}.jpg`}
+                img={`${ids}.jpg`}
                 ranking={average({ physical, technical })}
             />
 

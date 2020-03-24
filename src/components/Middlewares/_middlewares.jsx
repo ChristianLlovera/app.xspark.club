@@ -1,16 +1,17 @@
-import { useParams } from "react-router-dom"
-import { useStore } from '../Store/useStore'
+import db from '../DataBase'
+
+export const isProfile = params => new Promise(resolve => {
+
+    const { id } = params
+
+    db.profiles.get(id).then(res => {
+        !res.payload.exists ? resolve('/profile/list') : resolve(false)
+    })
+
+})
 
 
-export const isProfile = redirect => {
 
-    const { getProfile } = useStore()
-    const { id } = useParams()
-    const profile = getProfile(id)
-
-    if (!profile) {
-        redirect.url = '/profile/list'
-    }
-
-
+export const middlewareProvider = {
+    'is-profile': params => isProfile(params)
 }

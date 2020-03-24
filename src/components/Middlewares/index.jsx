@@ -1,26 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom"
 import { Redirect } from 'react-router-dom'
-import { isProfile } from './_middlewares'
+import { middlewareProvider } from './_middlewares'
+import { Card } from '../Layout/Card'
 
-const middlewareProvider = {
-    'is-profile': redirect => isProfile(redirect)
+
+const handlerActions = async obj => {
+
+    const { actions, params } = obj
+
+    if (actions) {
+
+        for (const action of actions) {
+
+            const trigger = middlewareProvider[action]
+            const redirect = await trigger(params)
+
+            if (redirect) {
+                return redirect
+            }
+        }
+
+    }
+
+    return false
 }
+
 
 const Middleware = props => {
 
     const { actions } = props
-    const redirect = { url: '' }
+    const [component, setComponent] = useState()
+    const params = useParams()
 
-    if (actions) {
-        actions.map((val) => {
-            if (middlewareProvider[val]) {
-                const trigger = middlewareProvider[val]
-                redirect.url == '' ? trigger(redirect) : null
-            }
+    useEffect(() => {
+
+        setComponent(<Card loader={true} />)
+
+        handlerActions({ actions, params }).then(res => {
+            res ?
+                setComponent(<Redirect to={res} />) :
+                setComponent(props.children)
         })
-    }
 
-    return (<>{redirect.url == '' ? props.children : <Redirect to={redirect.url} />}</>)
+
+    }, [props.children])
+
+    return (<>{component}</>)
 
 }
 

@@ -5,7 +5,7 @@ if (process.env.WEBPACK) { require('./_style.scss') }
 
 const IconButton = props => {
 
-    const { radio, icon, onClick, type } = props
+    const { radio, icon, onClick, type, process } = props
 
     const handlerClick = () => {
         onClick ? onClick() : null
@@ -18,7 +18,7 @@ const IconButton = props => {
 
 
     return (
-        <div type={type} style={style} className="icon-button" onClick={() => handlerClick()}>
+        <div type={type} data-process={process} style={style} className="icon-button" onClick={() => handlerClick()}>
             <Icons type={icon} />
         </div>
     )
