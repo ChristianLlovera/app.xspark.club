@@ -6,6 +6,7 @@
   <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="/assets/css/progress.css" />
   <link rel="stylesheet" href="/assets/css/bundle.css" />
 
   <link href="/assets/img/icon.png" rel="icon" sizes="192x192" />
@@ -13,8 +14,20 @@
   <title>Xspark Club App</title>
 </head>
 
+<!-- id="app" -->
+
 <body>
-  <main id="app" className="scroll"></main>
+  <main className="scroll" id="app">
+
+    <div class="progress">
+      <div class="loader"></div>
+      <progress max="100" id="progress-bar"></progress>
+      <span id="progress-int"></span>
+    </div>
+
+  </main>
+
+  <script src="/assets/js/progress.js"></script>
   <script src="/assets/js/bundle.js"></script>
 </body>
 
