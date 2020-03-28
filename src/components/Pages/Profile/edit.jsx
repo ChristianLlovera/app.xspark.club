@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from "react-router-dom"
 import { Input } from '../../Layout/Input'
-import { handlerGetProfile, handlerSaveProfile } from '../../Handlers/handlerProfile'
+import { handlerGetProfileEdit, handlerSaveProfile } from '../../Handlers/handlerProfile'
 import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import IconButton from '../../Layout/IconButton'
 
@@ -49,7 +49,7 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
     }
 
     useEffect(() => {
-        handlerGetProfile(id, setData, setLoading)
+        handlerGetProfileEdit([id, setData, setLoading])
     }, [])
 
     return (

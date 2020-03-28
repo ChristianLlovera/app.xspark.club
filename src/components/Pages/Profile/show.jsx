@@ -34,7 +34,10 @@ const ProfileShow = props => {
         observation } = data
 
     useEffect(() => {
-        handlerGetProfile(id, setData, setLoading)
+
+        const snapshot = handlerGetProfile([id, setData, setLoading])
+        return () => snapshot.unregister()
+
     }, [])
 
     const ids = 0

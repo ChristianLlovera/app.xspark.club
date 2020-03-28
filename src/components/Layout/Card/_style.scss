@@ -184,41 +184,56 @@
     &>.row-profile {
         display: flex;
         align-items: center;
-        justify-content: left;
+        justify-content: space-between;
         width: 100%;
         height: auto;
         border-bottom: 1px solid $light-gray;
         cursor: pointer;
 
-        &>.img {
-            height: 50px;
+        &>.action {
             width: 50px;
-            background-color: $light-gray;
-            border-radius: 100%;
-            margin: 10px;
-            background-repeat: no-repeat;
-            background-size: 110%;
-            background-position: center;
+            height: 50px;
         }
 
-        &>.description {
+        &>.info {
             display: flex;
-            flex-direction: column;
-            border-left: 1px solid $light-gray;
-            padding-left: 10px;
+            justify-content: right;
+            align-items: center;
+            width: calc(100% - 50px);
 
-            &>span {
-                text-transform: uppercase;
-                font-weight: 100;
-                letter-spacing: -1px;
+            &>.img {
+                height: 50px;
+                width: 50px;
+                background-color: $light-gray;
+                border-radius: 100%;
+                margin: 10px;
+                background-repeat: no-repeat;
+                background-size: 110%;
+                background-position: center;
             }
 
-            &>span[type='secundary'] {
-                font-size: 10px;
-                line-height: 10px;
-                color: $orange;
+            &>.description {
+                max-width: calc(100% - 70px);
+                display: flex;
+                flex-direction: column;
+                border-left: 1px solid $light-gray;
+                padding-left: 10px;
+
+                &>span {
+                    text-transform: uppercase;
+                    font-weight: 100;
+                    letter-spacing: -1px;
+                }
+
+                &>span[type='secundary'] {
+                    font-size: 10px;
+                    line-height: 10px;
+                    color: $orange;
+                }
             }
         }
+
+
 
 
     }

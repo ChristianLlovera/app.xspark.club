@@ -43,7 +43,7 @@ export const CardBlock = props => {
 
 export const CardRowProfile = props => {
 
-    const { title, secondary, img, onClick } = props
+    const { title, secondary, img, onClick, buttonRight } = props
 
     const handlerClick = () => {
         onClick ? onClick() : null
@@ -52,12 +52,15 @@ export const CardRowProfile = props => {
     const style = { 'backgroundImage': `url(/assets/img/profiles/${img})` }
 
     return (
-        <div className="row-profile fadeIn animated" onClick={() => handlerClick()}>
-            <div className="img" style={style}></div>
-            <div className="description">
-                <span>{title}</span>
-                <span type='secundary'>{secondary}</span>
+        <div className="row-profile fadeIn animated" >
+            <div className="info">
+                <div className="img" style={style}></div>
+                <div className="description" onClick={() => handlerClick()}>
+                    <span className="tres-puntos">{title}</span>
+                    <span className="tres-puntos" type='secundary'>{secondary}</span>
+                </div>
             </div>
+            <div className="action">{buttonRight}</div>
         </div>
     )
 }

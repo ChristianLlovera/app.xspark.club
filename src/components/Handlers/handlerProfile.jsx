@@ -1,31 +1,64 @@
 import { inputValue } from '../Layout/Input'
 import db from '../DataBase'
 
-export const handlerListProfile = (setData, setLoading) => {
+export const handlerListProfile = arr => {
+
+    const [setData, setLoading] = arr
+    const obj = { unregister: '' }
 
     db.profiles.list().then(res => {
-        setData(res.payload)
-        res.snapshot(setData)
-        setLoading(false)
+
+        res.snapshot((payload, unregister) => {
+            obj.unregister = unregister
+            setData(payload)
+            setLoading(false)
+        })
     })
 
+    return obj
+}
+
+export const handlerGetProfile = arr => {
+
+    const [id, setData, setLoading] = arr
+    const obj = { unregister: '' }
+
+    db.profiles.get(id).then(res => {
+
+        res.snapshot((payload, unregister) => {
+            obj.unregister = unregister
+            setData(payload)
+            setLoading(false)
+        })
+
+    })
+
+    return obj
 
 }
 
-export const handlerGetProfile = (id, setData, setLoading) => {
+export const handlerGetProfileEdit = arr => {
+
+    const [id, setData, setLoading] = arr
 
     db.profiles.get(id).then(res => {
         setData(res.payload)
-        res.snapshot(setData)
         setLoading(false)
     })
 
+
 }
 
-export const handlerDelProfile = id => {
+export const handlerDelProfile = arr => {
+
+    const [id, setDeleting] = arr
+
     db.profiles.delete(id).then(res => {
-        console.log('fue borrado')
+        if (setDeleting) {
+            setDeleting(false)
+        }
     })
+
 }
 
 export const handlerAddProfile = history => {

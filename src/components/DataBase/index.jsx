@@ -47,10 +47,11 @@ db.profiles.list = async () => {
 
     return {
         payload: payload(response),
-        snapshot: setData =>
-            refProfile.onSnapshot(res =>
-                setData(payload(res))
+        snapshot: func => {
+            const unregister = refProfile.onSnapshot(res =>
+                func(payload(res), unregister)
             )
+        }
     }
 
 }
@@ -76,10 +77,12 @@ db.profiles.get = async id => {
 
     return {
         payload: payload(response),
-        snapshot: setData =>
-            refProfile.onSnapshot(doc =>
-                setData(payload(doc))
+        snapshot: func => {
+
+            const unregister = refProfile.onSnapshot(doc =>
+                func(payload(doc), unregister)
             )
+        }
     }
 
 }

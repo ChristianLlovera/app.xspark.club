@@ -2,7 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom"
 import IconButton from '../../Layout/IconButton'
 import { Card, CardTitleHeader, CardRowProfile } from '../../Layout/Card'
-import { handlerListProfile } from '../../Handlers/handlerProfile'
+import { handlerListProfile, handlerDelProfile } from '../../Handlers/handlerProfile'
+
+const Row = props => {
+    const { data, item } = props
+    const [deleting, setDeleting] = useState(false)
+    const history = useHistory()
+
+    return (
+        <CardRowProfile
+            img={`${item}.jpg`}
+            onClick={() => history.push(`/profile/show/${data.id}`)}
+            title={`${data.info.name} ${data.info.lastname}`}
+            secondary={`- ${data.info.academy} -`}
+            buttonRight={<IconButton process={deleting} radio={50} icon="delete" onClick={() => handlerDelProfile([data.id, setDeleting])} />}
+        />
+    )
+}
 
 
 const ProfileList = props => {
@@ -11,7 +27,12 @@ const ProfileList = props => {
     const [loading, setLoading] = useState(true)
     const history = useHistory()
 
-    useEffect(() => { handlerListProfile(setData, setLoading) }, [])
+    useEffect(() => {
+
+        const spanshot = handlerListProfile([setData, setLoading])
+        return () => spanshot.unregister()
+
+    }, [])
 
     return (
         <Card loader={loading}>
@@ -21,13 +42,7 @@ const ProfileList = props => {
                 type="list"
             />{/* header */}
 
-            {data.map((element, key) =>
-                <CardRowProfile
-                    key={key}
-                    img={`${key}.jpg`}
-                    onClick={() => history.push(`/profile/show/${element.id}`)}
-                    title={`${element.info.name} ${element.info.lastname}`}
-                    secondary={`- ${element.info.academy} -`} />)}
+            {data.map((element, key) => <Row key={key} item={key} data={element} />)}
 
         </Card>
     )
