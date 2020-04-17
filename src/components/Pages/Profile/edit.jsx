@@ -43,7 +43,7 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
         if (changes == 'active') {
             setChanges('')
             setSaving(true)
-            handlerSaveProfile(id, data, setSaving)
+            handlerSaveProfile(id, setSaving)
         }
 
     }

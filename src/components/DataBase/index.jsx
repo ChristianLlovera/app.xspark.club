@@ -1,18 +1,11 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-
-firebase.initializeApp({
-    apiKey: 'AIzaSyCkN91lXYcAsFA4u7fA35JpC4RjJ0MRryE',
-    authDomain: 'xsparkapp.firebaseapp.com',
-    projectId: 'xsparkapp'
-})
+import firebase from '../Config/Firebase'
 
 firebase.firestore().settings({
     cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
 })
 
 firebase.firestore().enablePersistence()
-    .catch(function (err) {
+    .catch(err => {
         if (err.code == 'failed-precondition') {
             // Multiple tabs open, persistence can only be enabled
             // in one tab at a a time.
@@ -25,8 +18,21 @@ firebase.firestore().enablePersistence()
     })
 
 const connect = firebase.firestore()
-const db = { profiles: {} }
+const db = { profiles: {}, format: {} }
 
+db.format.date = data => {
+    return firebase.firestore.Timestamp.fromDate(data)
+}
+
+db.profiles.orderBy = obj => {
+    db.profiles.sort = obj
+    return db.profiles
+}
+
+db.profiles.limit = obj => {
+    db.profiles.lazy = obj
+    return db.profiles
+}
 
 db.profiles.list = async () => {
 
@@ -42,13 +48,35 @@ db.profiles.list = async () => {
         return result
     }
 
-    const refProfile = connect.collection("profiles")
-    const response = await refProfile.get()
+    let refCollection = connect.collection("profiles")
+
+    if (db.profiles.sort) {
+        const sort = db.profiles.sort
+        refCollection = refCollection
+            .orderBy(sort.field, sort.type)
+    }
+
+    if (db.profiles.lazy) {
+        const lazy = db.profiles.lazy
+        if (lazy.last) {
+            refCollection = refCollection
+                .startAfter(lazy.last)
+        }
+        if (lazy.limit) {
+            refCollection = refCollection
+                .limit(lazy.limit)
+        }
+    }
+
+    const response = await refCollection.get()
+
+    const lastVisible = response.docs[response.docs.length - 1]
 
     return {
+        last: lastVisible,
         payload: payload(response),
         snapshot: func => {
-            const unregister = refProfile.onSnapshot(res =>
+            const unregister = refCollection.onSnapshot(res =>
                 func(payload(res), unregister)
             )
         }
@@ -71,15 +99,14 @@ db.profiles.get = async id => {
         return result
     }
 
-    const refProfile = connect.doc(`profiles/${id}`)
-    const response = await refProfile.get()
+    const refCollection = connect.doc(`profiles/${id}`)
+    const response = await refCollection.get()
 
 
     return {
         payload: payload(response),
         snapshot: func => {
-
-            const unregister = refProfile.onSnapshot(doc =>
+            const unregister = refCollection.onSnapshot(doc =>
                 func(payload(doc), unregister)
             )
         }
@@ -88,23 +115,21 @@ db.profiles.get = async id => {
 }
 
 db.profiles.update = async (id, data) => {
-    const refProfile = connect.doc(`profiles/${id}`)
-    await refProfile.update(data)
+    const refCollection = connect.doc(`profiles/${id}`)
+    await refCollection.update(data)
     return true
 }
 
 db.profiles.create = async data => {
-    const refProfile = connect.collection(`profiles`)
-    const response = await refProfile.add(data)
-
+    const refCollection = connect.collection(`profiles`)
+    const response = await refCollection.add(data)
     const payload = { exists: true, id: response.id, ...data }
-
     return payload
 }
 
 db.profiles.delete = async id => {
-    const refProfile = connect.doc(`profiles/${id}`)
-    await refProfile.delete()
+    const refCollection = connect.doc(`profiles/${id}`)
+    await refCollection.delete()
     return true
 }
 

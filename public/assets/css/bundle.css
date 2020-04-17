@@ -24,13 +24,33 @@ i {
   mask: url("../icons/back.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/back.svg") center/contain no-repeat; }
 
+.icon_type-top {
+  mask: url("../icons/top.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/top.svg") center/contain no-repeat; }
+
+.icon_type-next {
+  mask: url("../icons/next.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/next.svg") center/contain no-repeat; }
+
+.icon_type-bottom {
+  mask: url("../icons/bottom.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/bottom.svg") center/contain no-repeat; }
+
 .icon_type-save {
   mask: url("../icons/save.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/save.svg") center/contain no-repeat; }
 
+.icon_type-download {
+  mask: url("../icons/download.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/download.svg") center/contain no-repeat; }
+
 .icon_type-delete {
   mask: url("../icons/delete.svg") center/contain no-repeat;
   -webkit-mask: url("../icons/delete.svg") center/contain no-repeat; }
+
+.icon_type-exit {
+  mask: url("../icons/exit.svg") center/contain no-repeat;
+  -webkit-mask: url("../icons/exit.svg") center/contain no-repeat; }
 
 .bg-menu {
   position: absolute;
@@ -2647,6 +2667,15 @@ input {
     color: rgba(128, 128, 128, 0.2); }
   input::placeholder {
     color: rgba(128, 128, 128, 0.2); }
+
+input,
+input:before,
+input:after {
+  -o-user-select: initial;
+  -webkit-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial; }
 
 html,
 body {

@@ -1,11 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import IconButton from '../IconButton'
-import trans from '../../Utils/translate'
-import nl2br from 'react-nl2br'
+import trans from '../../Helpers/Translate'
 import autosize from 'autosize'
 
 
 if (process.env.WEBPACK) { require('./_style.scss') }
+
+export const getData = () => {
+
+    const inputs = document.querySelectorAll('[data-value]')
+
+    const data = {}
+
+    Object.keys(inputs).map(element => {
+        data[inputs[element].getAttribute('name')] = inputs[element].dataset.value
+    })
+
+    return data
+
+}
+
+export const resetInputs = () => {
+
+    const inputs = document.querySelectorAll('[data-value]')
+
+    Object.keys(inputs).map(element => {
+        inputs[element].dataset.value = ''
+        inputs[element].value = ''
+    })
+
+}
 
 export const inputValue = name => {
 
@@ -131,8 +155,6 @@ const Num = props => {
 
     const { title, name, data, placeholder, onChange } = props
 
-
-
     const handlerKey = e => {
         const isNumber = /^[0-9]/g
 
@@ -219,6 +241,7 @@ const TextArea = props => {
         const input = document.querySelector(`[name=${name}]`)
         if (data) { input.value = data }
         autosize(input)
+        data ? input.dataset.value = data : input.dataset.value = ''
     }, [])
 
     return (

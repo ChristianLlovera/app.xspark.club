@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useStore } from '../../Store/useStore'
 import { useHistory, useParams } from "react-router-dom"
 import Input from '../../Layout/Input'
 import IconButton from '../../Layout/IconButton'
 import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
-import trans from '../../Utils/translate'
+import trans from '../../Helpers/Translate'
 import average from '../../Utils/average'
 import nl2br from 'react-nl2br'
 import { handlerGetProfile } from '../../Handlers/handlerProfile'
@@ -34,13 +33,9 @@ const ProfileShow = props => {
         observation } = data
 
     useEffect(() => {
-
         const snapshot = handlerGetProfile([id, setData, setLoading])
         return () => snapshot.unregister()
-
     }, [])
-
-    const ids = 0
 
     return (
 
@@ -54,10 +49,9 @@ const ProfileShow = props => {
                 doc={info.document}
                 category={info.academy}
                 number={info.number}
-                img={`${ids}.jpg`}
+                img={`profile.svg`}
                 ranking={average({ physical, technical })}
             />
-
 
             <CardGrid two>
                 <CardBlock>
@@ -68,16 +62,18 @@ const ProfileShow = props => {
                 </CardBlock>
             </CardGrid>
 
-
             <CardGrid two>
                 <CardBlock title="FÍSICO">
-                    {Object.keys(physical).map((element, key) => <Input key={key} type="ranking-read" data={physical[element]} title={trans(element)} />)}
+                    {Object.keys(physical).map((element, key) =>
+                        <Input key={key} type="ranking-read" data={physical[element]} title={trans(element)} />)
+                    }
                 </CardBlock>
                 <CardBlock title="TÉCNICO">
-                    {Object.keys(technical).map((element, key) => <Input key={key} type="ranking-read" data={technical[element]} title={trans(element)} />)}
+                    {Object.keys(technical).map((element, key) =>
+                        <Input key={key} type="ranking-read" data={technical[element]} title={trans(element)} />)
+                    }
                 </CardBlock>
             </CardGrid>
-
 
             <CardGrid>
                 <CardBlock title="Observaciones">
@@ -85,10 +81,10 @@ const ProfileShow = props => {
                 </CardBlock>
             </CardGrid>
 
-
             <CardGrid>
                 <CardBlock title="Seguro" />
             </CardGrid>
+
             <CardGrid two>
                 <CardBlock >
                     <Input type="read" data={insurance.company} title="company" />
@@ -98,10 +94,10 @@ const ProfileShow = props => {
                 </CardBlock>
             </CardGrid>
 
-
             <CardGrid>
                 <CardBlock title="Acudiente" />
             </CardGrid>
+
             <CardGrid two>
                 <CardBlock>
                     <Input type="read" data={attender.name} title="name" />
@@ -113,7 +109,6 @@ const ProfileShow = props => {
                     <Input type="read" data={attender.emergency} title="emergency" />
                 </CardBlock>
             </CardGrid>
-
 
         </Card >
 

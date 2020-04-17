@@ -26,6 +26,17 @@ input {
     }
 }
 
+input,
+input:before,
+input:after {
+    -o-user-select: initial;
+    -webkit-user-select: initial;
+    -khtml-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
 html,
 body {
     position: relative;

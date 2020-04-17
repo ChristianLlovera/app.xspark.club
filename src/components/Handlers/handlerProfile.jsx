@@ -1,19 +1,23 @@
-import { inputValue } from '../Layout/Input'
+import { inputValue, getData } from '../Layout/Input'
 import db from '../DataBase'
+import jsonexport from 'jsonexport'
 
 export const handlerListProfile = arr => {
 
     const [setData, setLoading] = arr
     const obj = { unregister: '' }
 
-    db.profiles.list().then(res => {
+    db.profiles
+        .orderBy({ field: 'info.name', type: 'asc' })
+        .list()
+        .then(res => {
 
-        res.snapshot((payload, unregister) => {
-            obj.unregister = unregister
-            setData(payload)
-            setLoading(false)
+            res.snapshot((payload, unregister) => {
+                obj.unregister = unregister
+                setData(payload)
+                setLoading(false)
+            })
         })
-    })
 
     return obj
 }
@@ -61,97 +65,113 @@ export const handlerDelProfile = arr => {
 
 }
 
-export const handlerAddProfile = history => {
+const structureGetData = () => {
+
+    const data = getData()
 
     const structure = {
         info: {
-            name: inputValue('info-name') ? inputValue('info-name') : '',
-            lastname: inputValue('info-lastname') ? inputValue('info-lastname') : '',
-            birthdate: inputValue('info-birthdate') ? inputValue('info-birthdate') : '',
-            document: inputValue('info-document') ? inputValue('info-document') : '',
-            academy: inputValue('info-academy') ? inputValue('info-academy') : '',
-            number: inputValue('info-number') ? inputValue('info-number') : '',
-            director: inputValue('info-director') ? inputValue('info-director') : '',
-            coach: inputValue('info-coach') ? inputValue('info-coach') : ''
+            name: data['info-name'],
+            lastname: data['info-lastname'],
+            birthdate: data['info-birthdate'],
+            document: data['info-document'],
+            academy: data['info-academy'],
+            number: data['info-number'],
+            director: data['info-director'],
+            coach: data['info-coach']
         },
         physical: {
-            speed: inputValue('physical-speed') ? parseInt(inputValue('physical-speed')) : '',
-            agility: inputValue('physical-agility') ? parseInt(inputValue('physical-agility')) : '',
-            strength: inputValue('physical-strength') ? parseInt(inputValue('physical-strength')) : '',
-            resistance: inputValue('physical-resistance') ? parseInt(inputValue('physical-resistance')) : '',
-            coordination: inputValue('physical-coordination') ? parseInt(inputValue('physical-coordination')) : ''
+            speed: Number(data['physical-speed']),
+            agility: Number(data['physical-agility']),
+            strength: Number(data['physical-strength']),
+            resistance: Number(data['physical-resistance']),
+            coordination: Number(data['physical-coordination'])
         },
         technical: {
-            driving: inputValue('technical-driving') ? parseInt(inputValue('technical-driving')) : '',
-            dodge: inputValue('technical-dodge') ? parseInt(inputValue('technical-dodge')) : '',
-            shot: inputValue('technical-shot') ? parseInt(inputValue('technical-shot')) : '',
-            pass: inputValue('technical-pass') ? parseInt(inputValue('technical-pass')) : '',
-            control: inputValue('technical-control') ? parseInt(inputValue('technical-control')) : ''
+            driving: Number(data['technical-driving']),
+            dodge: Number(data['technical-dodge']),
+            shot: Number(data['technical-shot']),
+            pass: Number(data['technical-pass']),
+            control: Number(data['technical-control'])
         },
-        observation: inputValue('observation') ? inputValue('observation') : '',
+        observation: data['observation'],
         insurance: {
-            company: inputValue('insurance-company') ? inputValue('insurance-company') : '',
-            number: inputValue('insurance-number') ? inputValue('insurance-number') : '',
+            company: data['insurance-company'],
+            number: data['insurance-number'],
         },
         attender: {
-            name: inputValue('attender-name') ? inputValue('attender-name') : '',
-            document: inputValue('attender-document') ? inputValue('attender-document') : '',
-            mail: inputValue('atterder-mail') ? inputValue('atterder-mail') : '',
-            phone: inputValue('attender-phone') ? inputValue('attender-phone') : '',
-            emergency: inputValue('attender-emergency') ? inputValue('attender-emergency') : ''
+            name: data['attender-name'],
+            document: data['attender-document'],
+            mail: data['atterder-mail'] ? data['atterder-mail'] : '',
+            phone: data['attender-phone'],
+            emergency: data['attender-emergency']
         }
     }
 
-    db.profiles.create(structure).then(res => {
-        history.push(`/profile/show/${res.id}`)
-    })
+    return structure
+}
+
+export const handlerAddProfile = history => {
+
+    const structure = structureGetData()
+
+    db.profiles
+        .create(structure)
+        .then(res => {
+            history.push(`/profile/show/${res.id}`)
+        })
 
 }
 
 
-export const handlerSaveProfile = (id, data, setSaving) => {
+export const handlerSaveProfile = (id, setSaving) => {
 
-    const structure = {
-        info: {
-            name: inputValue('info-name'),
-            lastname: inputValue('info-lastname'),
-            birthdate: inputValue('info-birthdate'),
-            document: inputValue('info-document'),
-            academy: inputValue('info-academy'),
-            number: inputValue('info-number'),
-            director: inputValue('info-director'),
-            coach: inputValue('info-coach')
-        },
-        physical: {
-            speed: parseInt(inputValue('physical-speed')),
-            agility: parseInt(inputValue('physical-agility')),
-            strength: parseInt(inputValue('physical-strength')),
-            resistance: parseInt(inputValue('physical-resistance')),
-            coordination: parseInt(inputValue('physical-coordination'))
-        },
-        technical: {
-            driving: parseInt(inputValue('technical-driving')),
-            dodge: parseInt(inputValue('technical-dodge')),
-            shot: parseInt(inputValue('technical-shot')),
-            pass: parseInt(inputValue('technical-pass')),
-            control: parseInt(inputValue('technical-control'))
-        },
-        observation: inputValue('observation') ? inputValue('observation') : data.observation,
-        insurance: {
-            company: inputValue('insurance-company'),
-            number: inputValue('insurance-number'),
-        },
-        attender: {
-            name: inputValue('attender-name'),
-            document: inputValue('attender-document'),
-            mail: inputValue('atterder-mail') ? inputValue('atterder-mail') : data.attender.mail,
-            phone: inputValue('attender-phone'),
-            emergency: inputValue('attender-emergency')
-        }
+    const structure = structureGetData()
+
+    db.profiles
+        .update(id, structure)
+        .then(res => {
+            setSaving(false)
+        })
+
+}
+
+export const handlerDownload = obj => {
+
+    const { setDownloading } = obj
+    const dowloadLink = document.querySelector('#download')
+
+    const formatData = data => {
+        data.map(elem => {
+            delete elem.id
+
+            if (elem.createAt) {
+                elem.createDate = moment(elem.createAt.toDate()).format("DD/MM/YYYY")
+                delete elem.createAt
+            }
+
+        })
+
+        return data
     }
 
-    db.profiles.update(id, structure).then(res => {
-        setSaving(false)
+    const exportData = data => jsonexport(data, (err, csv) => {
+        if (err) return console.log(err)
+        let csvContent = "data:text/csv;charset=utf-8," + csv
+        let encodedUri = encodeURI(csvContent)
+        dowloadLink.setAttribute("href", encodedUri)
+        dowloadLink.click()
     })
+
+    setDownloading(true)
+
+    db.profiles
+        .orderBy({ field: 'info.name', type: 'asc' })
+        .list()
+        .then(res => {
+            setDownloading(false)
+            const data = formatData(res.payload)
+            exportData(data)
+        })
 
 }
