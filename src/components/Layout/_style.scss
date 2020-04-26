@@ -64,6 +64,7 @@ a {
     color: $light-gray;
     text-decoration-style: none;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .scroll {
@@ -116,12 +117,18 @@ body {
             height: 100%;
 
             &>.body {
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                min-height: calc(100% - 125px);
-                height: calc(100% - 125px);
+                min-height: calc(100% - 65px);
+                height: calc(100% - 65px);
                 background-color: white;
+
+                &>.props-children {
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    width: 100%;
+                    min-height: calc(100% - 60px);
+                    height: auto;
+                }
             }
 
         }

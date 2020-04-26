@@ -35,6 +35,8 @@ export const getAuth = () => new Promise(resolve => {
         })
 })
 
+export const getCredential = (email, password) => firebase.auth.EmailAuthProvider.credential(email, password)
+
 
 export const singOut = () => new Promise(resolve => {
     firebase

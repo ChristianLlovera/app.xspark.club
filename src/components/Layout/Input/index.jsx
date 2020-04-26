@@ -129,6 +129,9 @@ const Text = props => {
         onChange ? onChange() : null
         const input = document.querySelector(`input[name=${name}]`)
         input.dataset.value = input.value
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
     }
 
     useEffect(() => {
@@ -143,6 +146,46 @@ const Text = props => {
             </div>
             <input type="text" name={name}
                 placeholder={placeholder}
+                onChange={() => handleChange()}
+                data-value={data} />
+        </div>
+    )
+
+}
+
+
+const Password = props => {
+
+    const { title, name, data, placeholder, onChange, onEnter } = props
+
+    const handleChange = () => {
+        onChange ? onChange() : null
+        const input = document.querySelector(`input[name=${name}]`)
+        input.dataset.value = input.value
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
+    }
+
+    const handleEnter = e => {
+        if (e.key == 'Enter') {
+            onEnter ? onEnter() : null
+        }
+    }
+
+    useEffect(() => {
+        const input = document.querySelector(`input[name=${name}]`)
+        if (data) { input.value = data }
+    }, [])
+
+    return (
+        <div className="input">
+            <div className="title">
+                <span>{trans(title)}</span>
+            </div>
+            <input type="password" name={name}
+                placeholder={placeholder}
+                onKeyDown={e => handleEnter(e)}
                 onChange={() => handleChange()}
                 data-value={data} />
         </div>
@@ -170,6 +213,9 @@ const Num = props => {
         onChange ? onChange() : null
         const input = document.querySelector(`input[name=${name}]`)
         input.dataset.value = Number(input.value)
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
     }
 
     useEffect(() => {
@@ -206,14 +252,22 @@ const Date = props => {
         const date = input.value.split('-')
         input.dataset.value = `${date[2]}/${date[1]}/${date[0]}`
 
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
+
     }
 
     useEffect(() => {
         const input = document.querySelector(`input[name=${name}]`)
-        const date = data.split('/')
-        if (date[2]) {
-            input.value = `${date[2]}-${date[1]}-${date[0]}`
+
+        if (data) {
+            const date = data.split('/')
+            if (date[2]) {
+                input.value = `${date[2]}-${date[1]}-${date[0]}`
+            }
         }
+
     }, [])
 
     return (
@@ -235,6 +289,10 @@ const TextArea = props => {
         onChange ? onChange() : null
         const input = document.querySelector(`[name=${name}]`)
         input.dataset.value = input.value
+
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
     }
 
     useEffect(() => {
@@ -268,6 +326,10 @@ const List = props => {
         onChange ? onChange() : null
         const input = document.querySelector(`[name=${name}]`)
         input.dataset.value = input.value
+
+        if (input.parentNode.dataset.error) {
+            input.parentNode.dataset.error = false
+        }
     }
 
     return (
@@ -287,13 +349,14 @@ const List = props => {
 
 export const Input = props => {
 
-    const { title, data, options, type, placeholder, name, onChange } = props
+    const { title, data, options, type, placeholder, name, onChange, onEnter } = props
 
     return (
 
         <>
             {type == "read" && <Read title={title} data={data} />}
             {type == "text" && <Text title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
+            {type == "password" && <Password title={title} name={name} data={data} onChange={onChange} onEnter={onEnter} placeholder={placeholder} />}
             {type == "number" && <Num title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}
             {type == "date" && <Date title={title} name={name} data={data} onChange={onChange} />}
             {type == "text-area" && <TextArea title={title} name={name} data={data} onChange={onChange} placeholder={placeholder} />}

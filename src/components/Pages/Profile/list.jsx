@@ -5,7 +5,7 @@ import { Card, CardTitleHeader, CardRowProfile } from '../../Layout/Card'
 import { handlerListProfile, handlerDelProfile, handlerDownload } from '../../Handlers/handlerProfile'
 
 const Row = props => {
-    const { data, item } = props
+    const { data } = props
     const [deleting, setDeleting] = useState(false)
     const history = useHistory()
 
@@ -29,10 +29,11 @@ const ProfileList = props => {
     const history = useHistory()
 
     useEffect(() => {
-
-        const spanshot = handlerListProfile([setData, setLoading])
-        return () => spanshot.unregister()
-
+        const snapshot = handlerListProfile([setData, setLoading])
+        return () => {
+            snapshot.promise.reject()
+            snapshot.unregister ? snapshot.unregister() : null
+        }
     }, [])
 
     return (

@@ -65,7 +65,7 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="información" />
             </CardGrid>
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock>
                     <InputText type="info" input="name" profile={data} onChange={() => handlerChange()} />
                     <InputDate type="info" input="birthdate" profile={data} onChange={() => handlerChange()} />
@@ -117,7 +117,7 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="seguro" />
             </CardGrid>
-            <CardGrid two>{/* titulo */}
+            <CardGrid type='two'>{/* titulo */}
                 <CardBlock>
                     <InputText type="insurance" input='company' profile={data} onChange={() => handlerChange()} />
                 </CardBlock>
@@ -130,7 +130,7 @@ const ProfileEdit = () => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="acudiente" />
             </CardGrid>
-            <CardGrid two>{/* titulo */}
+            <CardGrid type='two'>{/* titulo */}
                 <CardBlock>
                     <InputText type="attender" input="name" profile={data} onChange={() => handlerChange()} />
                     <InputNumber type="attender" input="phone" profile={data} onChange={() => handlerChange()} />

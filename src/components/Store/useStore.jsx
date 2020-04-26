@@ -12,46 +12,29 @@ export const useStore = () => {
         return menu
     }
 
-    const setMenu = data => {
+    const setMenu = () => {
         const menu = getMenu()
         State.menu = !menu
         setStore([State])
     }
 
-    const addProfile = data => {
-        State.profiles.push({ ...data })
-        setStore([State])
-        return State.profiles.length - 1
+    const getIsLogin = () => {
+        const state = { ...State }
+        const { isLogin } = state
+        return isLogin
     }
 
-    const listProfile = () => {
-        const { profiles } = State
-        const result = [...profiles]
-        return result
-    }
-
-    const getProfile = (id) => {
-        const { profiles } = State
-        if (profiles[id]) {
-            const result = { ...profiles[id] }
-            return result
-        } else {
-            return false
-        }
-    }
-
-    const setProfile = (id, data) => {
-        State.profiles[id] = data
+    const setIsLogin = () => {
+        const isLogin = getIsLogin()
+        State.isLogin = !isLogin
         setStore([State])
     }
 
     return {
-        addProfile,
-        listProfile,
-        getProfile,
-        setProfile,
         getMenu,
-        setMenu
+        setMenu,
+        getIsLogin,
+        setIsLogin
     }
 }
 

@@ -18,6 +18,7 @@ import {
 
 const ProfileCreate = props => {//pagina de edicion de perfiles
 
+
     const [changes, setChanges] = useState('')
     const [create, setCreate] = useState(false)
     const history = useHistory()//para direccionar con react router history.push("/destino")
@@ -50,7 +51,7 @@ const ProfileCreate = props => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="información" />
             </CardGrid>
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock>
                     <InputText type="info" input="name" onChange={() => handlerChange()} />
                     <InputDate type="info" input="birthdate" onChange={() => handlerChange()} />
@@ -101,7 +102,7 @@ const ProfileCreate = props => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="seguro" />
             </CardGrid>
-            <CardGrid two>{/* titulo */}
+            <CardGrid type='two'>{/* titulo */}
                 <CardBlock>
                     <InputText type="insurance" input='company' onChange={() => handlerChange()} />
                 </CardBlock>
@@ -114,7 +115,7 @@ const ProfileCreate = props => {//pagina de edicion de perfiles
             <CardGrid>{/* titulo */}
                 <CardBlock title="acudiente" />
             </CardGrid>
-            <CardGrid two>{/* titulo */}
+            <CardGrid type='two'>{/* titulo */}
                 <CardBlock>
                     <InputText type="attender" input="name" onChange={() => handlerChange()} />
                     <InputNumber type="attender" input="phone" onChange={() => handlerChange()} />

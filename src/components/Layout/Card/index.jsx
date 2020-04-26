@@ -20,10 +20,10 @@ export const Card = props => {
 
 export const CardGrid = props => {
 
-    const { two } = props
+    const { type } = props
 
     return (
-        <div className={two ? 'card-grid cg-two fadeIn animated' : 'card-grid fadeIn animated'}>
+        <div data-type={type} className={'card-grid fadeIn animated'}>
             {props.children}
         </div>
     )
@@ -38,6 +38,22 @@ export const CardBlock = props => {
             {title && <div className="title">{title}</div>}
             {props.children}
         </span>
+    )
+}
+
+export const CardErrors = props => {
+    const { data } = props
+
+    return (
+        <>
+            {data &&
+                <div className="errors">
+                    <ul>
+                        {Object.keys(data).map((element, key) => <li key={key}>{data[element][0]}</li>)}
+                    </ul>
+                </div>
+            }
+        </>
     )
 }
 

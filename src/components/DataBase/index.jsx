@@ -18,120 +18,171 @@ firebase.firestore().enablePersistence()
     })
 
 const connect = firebase.firestore()
-const db = { profiles: {}, format: {} }
 
-db.format.date = data => {
-    return firebase.firestore.Timestamp.fromDate(data)
-}
+const dataBase = () => {
 
-db.profiles.orderBy = obj => {
-    db.profiles.sort = obj
-    return db.profiles
-}
-
-db.profiles.limit = obj => {
-    db.profiles.lazy = obj
-    return db.profiles
-}
-
-db.profiles.list = async () => {
-
-    const payload = arr => {
-        const result = []
-
-        arr.forEach(doc => {
-            const data = doc.data()
-            const obj = { id: doc.id, ...data }
-            result.push(obj)
-        })
-
-        return result
+    const obj = {
+        sort: { field: '', type: '' },
+        lazy: { limit: '', last: '' },
+        cancel: false,
+        collection: '',
+        Timestamp: data => firebase.firestore.Timestamp.fromDate(data)
     }
 
-    let refCollection = connect.collection("profiles")
-
-    if (db.profiles.sort) {
-        const sort = db.profiles.sort
-        refCollection = refCollection
-            .orderBy(sort.field, sort.type)
+    obj.reject = () => {
+        obj.cancel = true
+        return obj
     }
 
-    if (db.profiles.lazy) {
-        const lazy = db.profiles.lazy
-        if (lazy.last) {
+    obj.setCollection = data => {
+        obj.cancel = false
+        obj.collection = data
+        return obj
+    }
+
+    obj.orderBy = data => {
+
+        const { field, type } = data
+
+        field ? obj.sort.field = field : null
+        type ? obj.sort.type = type : null
+        return obj
+
+    }
+
+    obj.orderByReset = () => {
+        obj.sort.field = ''
+        obj.sort.type = ''
+        return obj
+    }
+
+    obj.limit = data => {
+
+        const { limit, last } = data
+
+        limit ? obj.lazy.limit = limit : null
+        last ? obj.lazy.last = last : null
+        return obj
+
+    }
+
+    obj.limitReset = () => {
+
+        obj.lazy.limit = ''
+        obj.lazy.last = ''
+        return obj
+
+    }
+
+    obj.list = async () => {
+
+        const payload = arr => {
+            const result = []
+
+            arr.forEach(doc => {
+                const data = doc.data()
+                const obj = { id: doc.id, ...data }
+                result.push(obj)
+            })
+
+            return result
+        }
+
+        let refCollection = connect.collection(obj.collection)
+
+        if (obj.sort.field) {
             refCollection = refCollection
-                .startAfter(lazy.last)
+                .orderBy(obj.sort.field, obj.sort.type)
         }
-        if (lazy.limit) {
+
+        if (obj.lazy.limit) {
+
             refCollection = refCollection
-                .limit(lazy.limit)
-        }
-    }
+                .limit(obj.lazy.limit)
 
-    const response = await refCollection.get()
+            if (obj.lazy.last) {
+                refCollection = refCollection
+                    .startAfter(obj.lazy.last)
+            }
 
-    const lastVisible = response.docs[response.docs.length - 1]
-
-    return {
-        last: lastVisible,
-        payload: payload(response),
-        snapshot: func => {
-            const unregister = refCollection.onSnapshot(res =>
-                func(payload(res), unregister)
-            )
-        }
-    }
-
-}
-
-
-db.profiles.get = async id => {
-
-    const payload = doc => {
-
-        let result = { exists: false, id: id }
-
-        if (doc.exists) {
-            const data = doc.data()
-            result = { exists: true, id: id, ...data }
         }
 
-        return result
-    }
+        const response = await refCollection.get()
 
-    const refCollection = connect.doc(`profiles/${id}`)
-    const response = await refCollection.get()
-
-
-    return {
-        payload: payload(response),
-        snapshot: func => {
-            const unregister = refCollection.onSnapshot(doc =>
-                func(payload(doc), unregister)
-            )
+        if (obj.cancel) {
+            await Promise.reject('reject promise list')
         }
+
+        const lastVisible = response.docs[response.docs.length - 1]
+
+        return {
+            last: lastVisible,
+            payload: payload(response),
+            snapshot: func => {
+                const unregister = refCollection.onSnapshot(res =>
+                    func(payload(res), unregister)
+                )
+            }
+        }
+
     }
 
+    obj.get = async id => {
+
+        const payload = doc => {
+
+            let result = { exists: false, id: id }
+
+            if (doc.exists) {
+                const data = doc.data()
+                result = { exists: true, id: id, ...data }
+            }
+
+            return result
+        }
+
+        const refCollection = connect.doc(`${obj.collection}/${id}`)
+        const response = await refCollection.get()
+
+        if (obj.cancel) {
+            await Promise.reject('reject promise get')
+        }
+
+        return {
+            payload: payload(response),
+            snapshot: func => {
+                const unregister = refCollection.onSnapshot(doc =>
+                    func(payload(doc), unregister)
+                )
+            }
+        }
+
+    }
+
+    obj.update = async (id, data) => {
+        const refCollection = connect.doc(`${obj.collection}/${id}`)
+        await refCollection.update(data)
+        return true
+    }
+
+    obj.create = async data => {
+        const refCollection = connect.collection(`${obj.collection}`)
+        const response = await refCollection.add(data)
+        const payload = { exists: true, id: response.id, ...data }
+        return payload
+    }
+
+    obj.delete = async id => {
+        const refCollection = connect.doc(`${obj.collection}/${id}`)
+        await refCollection.delete()
+        return true
+    }
+
+    return obj
 }
 
-db.profiles.update = async (id, data) => {
-    const refCollection = connect.doc(`profiles/${id}`)
-    await refCollection.update(data)
-    return true
-}
-
-db.profiles.create = async data => {
-    const refCollection = connect.collection(`profiles`)
-    const response = await refCollection.add(data)
-    const payload = { exists: true, id: response.id, ...data }
-    return payload
-}
-
-db.profiles.delete = async id => {
-    const refCollection = connect.doc(`profiles/${id}`)
-    await refCollection.delete()
-    return true
-}
 
 
-export default db
+
+
+export default dataBase

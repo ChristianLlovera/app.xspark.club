@@ -8,6 +8,7 @@ import average from '../../Utils/average'
 import nl2br from 'react-nl2br'
 import { handlerGetProfile } from '../../Handlers/handlerProfile'
 
+
 const ProfileShow = props => {
 
     const empty = {
@@ -34,11 +35,13 @@ const ProfileShow = props => {
 
     useEffect(() => {
         const snapshot = handlerGetProfile([id, setData, setLoading])
-        return () => snapshot.unregister()
+        return () => {
+            snapshot.promise.reject()
+            snapshot.unregister ? snapshot.unregister() : null
+        }
     }, [])
 
     return (
-
         <Card loader={loading}>
             <CardProfileHeader
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push("/profile/list")} />}
@@ -53,7 +56,7 @@ const ProfileShow = props => {
                 ranking={average({ physical, technical })}
             />
 
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock>
                     <Input title="Director Deportivo" data={info.director} type="read" />
                 </CardBlock>
@@ -62,7 +65,7 @@ const ProfileShow = props => {
                 </CardBlock>
             </CardGrid>
 
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock title="FÍSICO">
                     {Object.keys(physical).map((element, key) =>
                         <Input key={key} type="ranking-read" data={physical[element]} title={trans(element)} />)
@@ -85,7 +88,7 @@ const ProfileShow = props => {
                 <CardBlock title="Seguro" />
             </CardGrid>
 
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock >
                     <Input type="read" data={insurance.company} title="company" />
                 </CardBlock>
@@ -98,7 +101,7 @@ const ProfileShow = props => {
                 <CardBlock title="Acudiente" />
             </CardGrid>
 
-            <CardGrid two>
+            <CardGrid type='two'>
                 <CardBlock>
                     <Input type="read" data={attender.name} title="name" />
                     <Input type="read" data={attender.phone} title="phone" />

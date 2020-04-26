@@ -3,7 +3,6 @@
 .card {
     min-width: 350px;
     width: 50%;
-    min-height: 400px;
     height: auto;
     border: solid 1px $light-gray;
     margin-top: 40px;
@@ -13,6 +12,7 @@
     overflow: hidden;
 
     &[data-loader='true'] {
+        min-height: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -173,6 +173,21 @@
             }
         }
 
+        &[data-type="two"] {
+            &>span {
+                width: 50%;
+            }
+        }
+
+        &[data-type="center"] {
+            &>span {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 70%;
+            }
+        }
+
     }
 
     &>.cg-two {
@@ -238,5 +253,60 @@
 
     }
 
+    &>.info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        &>p {
+            margin: 0px;
+            padding: 50px;
+            text-align: center;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+        &>h1 {
+            text-align: center;
+            font-size: 16px;
+            line-height: 14px;
+            letter-spacing: -1px;
+            font-weight: 900;
+            margin: 0px;
+            padding-bottom: 0px;
+        }
+
+        &>h2 {
+            margin: 0px;
+            padding: 10px;
+            text-align: center;
+            color: #FC4C02;
+            border: 1px solid;
+            width: fit-content;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        &[data-type="gray"] {
+            background-color: $light-gray;
+
+            &>p {
+                font-weight: bold;
+                color: gray;
+            }
+        }
+    }
+
+    &>.errors {
+        background-color: $orange;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+        margin-bottom: 10px;
+    }
 
 }

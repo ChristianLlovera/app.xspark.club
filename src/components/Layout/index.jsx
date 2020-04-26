@@ -12,9 +12,11 @@ const Layout = props => {
             <Menu />
             <Header />
             <div className="body scroll">
-                {props.children}
+                <div className="props-children">
+                    {props.children}
+                </div>
+                <Footer />
             </div>
-            <Footer />
         </div>
     )
 }

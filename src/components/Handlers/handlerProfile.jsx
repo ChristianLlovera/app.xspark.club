@@ -1,69 +1,6 @@
-import { inputValue, getData } from '../Layout/Input'
-import db from '../DataBase'
+import { getData } from '../Layout/Input'
+import dataBase from '../DataBase'
 import jsonexport from 'jsonexport'
-
-export const handlerListProfile = arr => {
-
-    const [setData, setLoading] = arr
-    const obj = { unregister: '' }
-
-    db.profiles
-        .orderBy({ field: 'info.name', type: 'asc' })
-        .list()
-        .then(res => {
-
-            res.snapshot((payload, unregister) => {
-                obj.unregister = unregister
-                setData(payload)
-                setLoading(false)
-            })
-        })
-
-    return obj
-}
-
-export const handlerGetProfile = arr => {
-
-    const [id, setData, setLoading] = arr
-    const obj = { unregister: '' }
-
-    db.profiles.get(id).then(res => {
-
-        res.snapshot((payload, unregister) => {
-            obj.unregister = unregister
-            setData(payload)
-            setLoading(false)
-        })
-
-    })
-
-    return obj
-
-}
-
-export const handlerGetProfileEdit = arr => {
-
-    const [id, setData, setLoading] = arr
-
-    db.profiles.get(id).then(res => {
-        setData(res.payload)
-        setLoading(false)
-    })
-
-
-}
-
-export const handlerDelProfile = arr => {
-
-    const [id, setDeleting] = arr
-
-    db.profiles.delete(id).then(res => {
-        if (setDeleting) {
-            setDeleting(false)
-        }
-    })
-
-}
 
 const structureGetData = () => {
 
@@ -111,11 +48,85 @@ const structureGetData = () => {
     return structure
 }
 
+export const handlerListProfile = arr => {
+
+    const db = dataBase()
+    const [setData, setLoading] = arr
+    const obj = { unregister: '', promise: db }
+
+    db.setCollection('profiles')
+        .orderBy({ field: 'info.name', type: 'asc' })
+        .list()
+        .then(res => {
+            res.snapshot((payload, unregister) => {
+                obj.unregister = unregister
+                setData(payload)
+                setLoading(false)
+            })
+        })
+
+    return obj
+}
+
+export const handlerGetProfile = arr => {
+
+    const db = dataBase()
+    const [id, setData, setLoading] = arr
+    const obj = { unregister: '', promise: db }
+
+    db.setCollection('profiles')
+        .get(id)
+        .then(res => {
+
+            res.snapshot((payload, unregister) => {
+                obj.unregister = unregister
+                setData(payload)
+                setLoading(false)
+            })
+
+        })
+
+    return obj
+
+}
+
+export const handlerGetProfileEdit = arr => {
+
+    const db = dataBase()
+    const [id, setData, setLoading] = arr
+
+    db.setCollection('profiles')
+        .get(id)
+        .then(res => {
+            setData(res.payload)
+            setLoading(false)
+        })
+
+}
+
+export const handlerDelProfile = arr => {
+
+    const db = dataBase()
+    const [id, setDeleting] = arr
+
+    db.setCollection('profiles')
+        .delete(id)
+        .then(res => {
+            if (setDeleting) {
+                setDeleting(false)
+            }
+        })
+
+}
+
+
+
 export const handlerAddProfile = history => {
 
+    const db = dataBase()
     const structure = structureGetData()
 
-    db.profiles
+    db.setCollection('profiles')
         .create(structure)
         .then(res => {
             history.push(`/profile/show/${res.id}`)
@@ -126,9 +137,10 @@ export const handlerAddProfile = history => {
 
 export const handlerSaveProfile = (id, setSaving) => {
 
+    const db = dataBase()
     const structure = structureGetData()
 
-    db.profiles
+    db.setCollection('profiles')
         .update(id, structure)
         .then(res => {
             setSaving(false)
@@ -165,7 +177,9 @@ export const handlerDownload = obj => {
 
     setDownloading(true)
 
-    db.profiles
+    const db = dataBase()
+
+    db.setCollection('profiles')
         .orderBy({ field: 'info.name', type: 'asc' })
         .list()
         .then(res => {

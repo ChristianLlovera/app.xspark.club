@@ -2,6 +2,10 @@
 
 input {
     background-color: transparent;
+
+    &::placeholder {
+        color: $gray;
+    }
 }
 
 input::-webkit-outer-spin-button,
@@ -26,7 +30,6 @@ select {
     width: 100%;
     height: auto;
     padding: 10px;
-    padding-top: 0px;
 
     &>.title {
         font-size: 10px;
@@ -47,6 +50,13 @@ select {
         resize: none;
         overflow: hidden;
         border: 0px;
+    }
+
+    &[data-error="true"] {
+
+        &>.title {
+            color: $orange;
+        }
     }
 
 

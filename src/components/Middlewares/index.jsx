@@ -7,23 +7,35 @@ import { Card } from '../Layout/Card'
 
 const handlerActions = async obj => {
 
-    const { actions, params } = obj
+    const { actions, params, setComponent, props } = obj
 
     if (actions) {
 
         for (const action of actions) {
 
             const trigger = middlewareProvider[action]
-            const redirect = await trigger(params)
 
-            if (redirect) {
-                return redirect
+            if (trigger) {
+
+                const action = () => new Promise((resolve, reject) => {
+                    window.reject = () => reject('reject in middleware')
+                    const obj = { params, resolve }
+                    trigger(obj)
+                })
+
+                const redirect = await action()
+                if (redirect) { setComponent(<Redirect to={redirect} />) }
+                else { setComponent(props.children) }
+
+            } else {
+                setComponent(props.children)
+                console.error(`middleware "${action}" undenfined`)
             }
+
         }
 
-    }
+    } else { setComponent(props.children) }
 
-    return false
 }
 
 
@@ -36,13 +48,9 @@ const Middleware = props => {
     useEffect(() => {
 
         setComponent(<Card loader={true} />)
+        window.reject ? window.reject() : null
 
-        handlerActions({ actions, params }).then(res => {
-            res ?
-                setComponent(<Redirect to={res} />) :
-                setComponent(props.children)
-        })
-
+        handlerActions({ actions, params, setComponent, props })
 
     }, [props.children])
 

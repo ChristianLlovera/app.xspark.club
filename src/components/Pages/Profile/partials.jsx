@@ -7,7 +7,7 @@ export const InputRanking = props => {//todos los inputs de ranking para un bucl
     const data = profile ? profile[type][input] : 0
 
     return (
-        <CardGrid two>
+        <CardGrid type='two'>
             <CardBlock>
                 <Input type="ranking-edit" onChange={onChange} name={`${type}-${input}`} title={input} data={data} />
             </CardBlock>
