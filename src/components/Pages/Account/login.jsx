@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Card, CardGrid, CardBlock, CardTitleHeader, CardErrors } from '../../Layout/Card'
-import { Input, getData } from '../../Layout/Input'
+import { Input } from '../../Layout/Input'
 import TextButton from '../../Layout/TextButton'
-import { handlerLogin } from '../../Handlers/handlersLogin'
+import { handlerLogin } from '../../Handlers/handlersAccount'
 import { useHistory } from 'react-router-dom'
 import useStore from '../../Store/useStore'
 
@@ -16,18 +16,15 @@ const Auth = props => {
 
     const [data, setData] = useState({})
     const [err, setErr] = useState()
-    const dep = { getData, setLoading, setIsLogin, setData, setErr, history }
+    const dep = { setLoading, setIsLogin, setData, setErr, history }
 
 
     return (
         <Card loader={loading}>
-            <CardTitleHeader title="Login" type="list" />
+            <CardTitleHeader title="Xspark App" type="list" />
 
-            <div className="info" data-type="gray">
-                <p>Coloca tu usuario y contraseña para iniciar sesión.</p>
-            </div>
+            <div className="account-message"> Coloca tu usuario y contraseña para Iniciar Sesión.</div>
 
-            <br />
 
             <CardGrid type='center'>
                 <CardBlock>
@@ -35,7 +32,7 @@ const Auth = props => {
                     <Input type='password' title='Contraseña' name='password' onEnter={() => handlerLogin(dep)} placeholder='Escribe tu Contraseña' />
                 </CardBlock>
             </CardGrid>
-
+            <br />
             <CardErrors data={err} />
 
             <CardGrid type='center'>
@@ -43,6 +40,12 @@ const Auth = props => {
                     <TextButton name='Login' onClick={() => handlerLogin(dep)} />
                 </CardBlock>
             </CardGrid>
+
+            <div className="account-message">  ¿Aún no estás registrado? <a onClick={() => history.push('/account/register')}> Pulsa aquí para Registrarte</a>
+                <div className="setAccoutn">
+                    <a onClick={() => history.push('/account/reset/password')}>¿Olvidaste tu Contraseña?</a>
+                </div>
+            </div>
         </Card>
     )
 }

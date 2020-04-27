@@ -5,9 +5,11 @@ import ProfileList from '../Pages/Profile/list'
 import ProfileCreate from '../Pages/Profile/create'
 import ProfileShow from '../Pages/Profile/show'
 import ProfileEdit from '../Pages/Profile/edit'
-import Login from '../Pages/Login'
+import Login from '../Pages/Account/login'
+import Register from '../Pages/Account/register'
 import SetInfo from '../Pages/Account/setInfo'
 import SetPassword from '../Pages/Account/setPassword'
+import ResetPassword from '../Pages/Account/resetPassword'
 import SetEmail from '../Pages/Account/setEmail'
 import NoFount from '../Pages/404'
 import Middleware from '../Middlewares'
@@ -22,31 +24,43 @@ const Routes = () => {
                 <Middleware >
                     <Home />
                 </Middleware>
-            </Route >
+            </Route>
 
-            <Route path={'/login'} >
+            <Route path={'/account/login'} >
                 <Middleware actions={['is-not-auth']} >
                     <Login />
                 </Middleware>
-            </Route >
+            </Route>
+
+            <Route path={'/account/register'} >
+                <Middleware actions={['is-not-auth']}>
+                    <Register />
+                </Middleware>
+            </Route>
 
             <Route path={'/account/set/info'} >
                 <Middleware actions={['is-auth']}>
                     <SetInfo />
                 </Middleware>
-            </Route >
+            </Route>
 
             <Route path={'/account/set/password'} >
                 <Middleware actions={['is-auth']}>
                     <SetPassword />
                 </Middleware>
-            </Route >
+            </Route>
 
             <Route path={'/account/set/email'} >
                 <Middleware actions={['is-auth']}>
                     <SetEmail />
                 </Middleware>
             </Route >
+
+            <Route path={'/account/reset/password'} >
+                <Middleware actions={['is-not-auth']}>
+                    <ResetPassword />
+                </Middleware>
+            </Route>
 
             <Route path={'/profile/list'} >
                 <Middleware actions={['is-auth', 'is-admin']}>

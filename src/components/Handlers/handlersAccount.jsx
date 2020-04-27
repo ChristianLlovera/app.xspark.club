@@ -1,5 +1,5 @@
 import { getData } from '../Layout/Input'
-import { getAuth, getCredential } from '../Auth'
+import { singUp, singIn, singOut, getAuth, getCredential, resetEmail } from '../Auth'
 import dataBase from '../DataBase'
 import Validator from 'validatorjs'
 
@@ -177,5 +177,169 @@ export const handlerSetEmail = async obj => {
         }
 
     }
+
+}
+
+export const handlerRegister = async obj => {
+
+    const { setLoading, setErr, setData, history, setIsLogin } = obj
+
+    const data = getData()
+    setData({ email: data['email'] })
+
+    const structure = {
+        password: data['password'],
+        password_confirmation: data['password_confirmation'],
+        email: data['email']
+    }
+
+    const rules = {
+        email: 'required|email',
+        password: 'required|confirmed',
+    }
+
+    const customMessage = {
+        'required.email': 'El campo Correo Electrónico es obligatorio',
+        'email.email': 'Debes colocar un correo electrónico válido',
+        'required.password': 'El campo contraseña es obligatorio',
+        'confirmed.password': 'Debes confirmar la contraseña'
+    }
+
+    const validate = new Validator(structure, rules, customMessage)
+    if (validate.fails()) { handlerShowError(validate, setErr) }
+    else {
+        setErr('')
+        setLoading(true)
+
+        try {
+            const test = await singUp([structure.email, structure.password])
+            setIsLogin(true)
+            history.push('/account/set/info')
+        }
+        catch (err) {
+            setLoading(false)
+            if (err.code == 'auth/weak-password') {
+                setErr({ error: ['La contraseña debe tener al menos 6 caracteres'] })
+            } else if (err.code == 'auth/email-already-in-use') {
+                setErr({ error: ['La dirección de correo electrónico ya está en uso por otra cuenta.'] })
+            } else {
+                setErr({ error: ['Ha ocurrido un error, vuelve a intentarlo'] })
+            }
+        }
+
+    }
+
+}
+
+export const handlerResetPassword = async obj => {
+
+    const { setLoading, setErr, setSuccess } = obj
+
+    const data = getData()
+
+    const structure = {
+        email: data['email']
+    }
+
+    const rules = {
+        email: 'required|email',
+    }
+
+    const customMessage = {
+        'required.email': 'El campo Correo Electrónico es obligatorio',
+        'email.email': 'Debes colocar un correo electrónico válido'
+    }
+
+    const validate = new Validator(structure, rules, customMessage)
+    if (validate.fails()) { handlerShowError(validate, setErr) }
+    else {
+        setErr('')
+        setSuccess('')
+        setLoading(true)
+
+        try {
+            await resetEmail(structure.email)
+            setLoading(false)
+            setSuccess(`Se a enviado un Correo a ${structure.email} con un enlace para cambiar tu contraseña.`)
+
+        }
+        catch (err) {
+            setLoading(false)
+            if (err.code == 'auth/user-not-found') {
+                setErr({ err: [`No hay registro de usuario correspondiente a ${structure.email}`] })
+            } else {
+                setErr({ err: [`Ha ocurrido un error, vuelve a intentar`] })
+            }
+        }
+
+    }
+
+}
+
+export const handlerLogin = obj => {
+
+    const { setErr, setData, setLoading, history, setIsLogin } = obj
+    const data = getData()
+
+    setData({ email: data.email })
+
+    const rules = {
+        email: 'required|email',
+        password: 'required',
+    }
+
+    const customMessage = {
+        'required.email': 'El campo Correo Electrónico es obligatorio',
+        'email.email': 'Debes colocar un correo electrónico válido',
+        'required.password': 'Debes colocar una contraseña'
+    }
+
+
+    const handlerShowError = () => {
+        const err = validate.errors.all()
+        setErr(err)//set del estado de error
+        Object.keys(err).map((element) => {//coloca los campos erroneos en rojo
+            const component = document.querySelector(`[name=${element}]`)
+            if (component) {
+                component.parentNode.dataset.error = true
+            }
+        })
+    }
+
+
+    const handlerSingIn = () => {
+        setLoading(true)
+
+        singIn([data.email, data.password])
+            .then(res => {
+                setIsLogin(true)
+                history.push('/profile/list')
+            })
+            .catch(err => {
+                console.error(err)
+                setIsLogin(false)
+                setLoading(false)
+                setErr({ success: ["Usuario o contraseña invalido"] })
+            })
+
+    }
+
+
+    const validate = new Validator(data, rules, customMessage)
+    if (validate.fails()) { handlerShowError(validate) }
+    else { handlerSingIn() }
+
+}
+
+export const handlerLogout = obj => {
+
+    const { history, setIsLogin } = obj
+
+    singOut()
+        .then(res => {
+            setIsLogin(false)
+            history.push('/account/login')
+        })
+
 
 }

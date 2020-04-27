@@ -57,6 +57,20 @@ export const CardErrors = props => {
     )
 }
 
+export const CardSuccess = props => {
+    const { data } = props
+
+    return (
+        <>
+            {data &&
+                <div className="success">
+                    {data}
+                </div>
+            }
+        </>
+    )
+}
+
 export const CardRowProfile = props => {
 
     const { title, secondary, img, onClick, buttonRight } = props

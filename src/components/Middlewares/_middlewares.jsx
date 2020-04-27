@@ -36,8 +36,8 @@ export const isAuth = async props => {
     try {
         const usr = await getAuth()
         if (usr && usr.uid && !usr.isAnonymous) { resolve(false) }
-        else { resolve('/login') }
-    } catch{ resolve('/login') }
+        else { resolve('/account/login') }
+    } catch{ resolve('/account/login') }
 
 }
 

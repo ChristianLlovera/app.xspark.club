@@ -18,7 +18,7 @@ const SetEmail = props => {
 
     return (
         <Card loader={loading}>
-            <CardTitleHeader title="Change Email" type="list"
+            <CardTitleHeader title="Cambio de Email" type="list"
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push(`/account/set/info`)} />}
             />
 

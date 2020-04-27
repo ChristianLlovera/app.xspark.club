@@ -29,9 +29,12 @@ const Account = props => {
 
     return (
         <Card loader={loading}>
-            <CardTitleHeader title="Account" type="list"
+            <CardTitleHeader title="Perfil" type="list"
                 buttonRight={<IconButton type={changes} process={saving} radio={50} icon="save" onClick={() => handlerSetData(dep)} />}
             />
+            {!data.name &&
+                <div className="account-message"> <strong>Completa tus datos de usuario,</strong>  tus datos de usuario son sumamente importantes para la correcta gestión de tu cuenta.</div>
+            }
 
             <br />
 

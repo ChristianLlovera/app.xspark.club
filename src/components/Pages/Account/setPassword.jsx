@@ -16,7 +16,7 @@ const SetPassword = props => {
 
     return (
         <Card loader={loading}>
-            <CardTitleHeader title="Change Password" type="list"
+            <CardTitleHeader title="Cambiar Contraseña" type="list"
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push(`/account/set/info`)} />}
             />
 

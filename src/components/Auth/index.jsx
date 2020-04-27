@@ -58,3 +58,25 @@ export const singIn = arr => new Promise((resolve, reject) => {
         .catch(err => reject(err))
 
 })
+
+export const singUp = arr => new Promise((resolve, reject) => {
+
+    const [email, pass] = arr
+
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, pass)
+        .then(res => resolve(res.user))
+        .catch(err => reject(err))
+
+})
+
+export const resetEmail = email => new Promise((resolve, reject) => {
+
+    firebase
+        .auth()
+        .sendPasswordResetEmail(email)
+        .then(res => resolve(res))
+        .catch(err => reject(err))
+
+})
