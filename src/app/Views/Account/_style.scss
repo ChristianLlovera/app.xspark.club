@@ -1,0 +1,35 @@
+@import "app/sass/variables";
+
+.setAccoutn {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+
+    &>a {
+        transition: 0.5s;
+        display: block;
+        margin-bottom: 10px;
+
+        &:hover {
+            color: $orange;
+        }
+    }
+}
+
+.account-message {
+    padding: 30px;
+    text-align: center;
+    color: $gray;
+
+    &>strong {
+        color: $orange;
+    }
+
+    &>a {
+        color: $orange;
+    }
+}
+
+#recaptcha-container {
+    margin-top: 20px;
+}

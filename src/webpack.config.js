@@ -13,49 +13,39 @@ const bundle = {
         extensions: ['.js', '.jsx', '.scss', '.css']
     },
     module: {
-        rules: [{
-            test: /\.json$/,
-            use: 'json-loader'
-        },
-        {
-            test: /\.jsx$/,
-            use: 'babel-loader',
-            exclude: /node_modules/
-        },
-        {
-            test: /\.scss|.css$/,
-            use: [{
-                loader: MiniCssExtractPlugin.loader
+        rules: [
+            {
+                test: /\.json$/,
+                use: 'json-loader',
+                exclude: /node_modules/
             },
             {
-                loader: 'css-loader?url=false'
+                test: /\.jsx$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
             },
             {
-                loader: 'sass-loader'
-            },
-            {
-                loader: 'postcss-loader',
-                options: {
-                    sourceMap: true,
-                    config: {
-                        path: 'postcss.config.js'
+                test: /\.scss|.css$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: 'css-loader?url=false' },
+                    { loader: 'sass-loader' },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true,
+                            config: { path: 'postcss.config.js' }
+                        }
                     }
-                }
+                ],
+                exclude: /node_modules/
             }
-            ]
-        }
         ]
 
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'css/bundle.css'
-        }),
-        new webpack.DefinePlugin({
-            'process.env': {
-                WEBPACK: true
-            }
-        })
+        new MiniCssExtractPlugin({ filename: 'css/bundle.css' }),
+        new webpack.DefinePlugin({ 'process.env': { WEBPACK: true } })
     ]
 }
 

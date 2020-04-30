@@ -1,0 +1,54 @@
+@import "app/sass/variables";
+
+.content {
+    &>.header {
+        display: flex;
+        justify-content: space-between;
+        height: 65px;
+        background-color: white;
+        z-index: 2;
+        border-bottom: 1px solid $light-gray;
+
+        &>.logo-content {
+            display: flex;
+            width: initial;
+            height: 65px;
+
+            &>.menu-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                width: 65px;
+                height: 65px;
+
+                &>i {
+                    width: 20px;
+                    height: 20px;
+                    background-color: $gray;
+                }
+            }
+
+            &>.logo {
+                width: 150px;
+                height: 65px;
+                background-image: url('../img/logo.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+
+                &[data-menu="false"] {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        &>.action-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+    }
+
+}

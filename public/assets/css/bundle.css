@@ -21,7 +21,7 @@ Copyright (c) 2015 Daniel Eden
 
 .text-button{cursor:pointer;font-size:14px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;text-transform:uppercase;padding:10px;-webkit-transition:0.5s;transition:0.5s;background-color:transparent;border-radius:5px;color:#b5b5b5}.text-button:hover{background-color:rgba(128,128,128,0.2)}
 
-.setAccoutn{width:100%;text-align:center;margin-top:20px}.setAccoutn>a{-webkit-transition:0.5s;transition:0.5s;display:block;margin-bottom:10px}.setAccoutn>a:hover{color:#FC4C02}.account-message{padding:30px;text-align:center;color:#b5b5b5}.account-message>strong{color:#FC4C02}.account-message>a{color:#FC4C02}
+.setAccoutn{width:100%;text-align:center;margin-top:20px}.setAccoutn>a{-webkit-transition:0.5s;transition:0.5s;display:block;margin-bottom:10px}.setAccoutn>a:hover{color:#FC4C02}.account-message{padding:30px;text-align:center;color:#b5b5b5}.account-message>strong{color:#FC4C02}.account-message>a{color:#FC4C02}#recaptcha-container{margin-top:20px}
 
 .message{width:330px;height:330px;background-image:url("../img/construction.svg");background-repeat:no-repeat;background-position:top;background-size:100%}
 

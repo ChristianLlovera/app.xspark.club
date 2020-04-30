@@ -1,5 +1,4 @@
 {
-
     "presets": [
         "@babel/preset-react",
         [
@@ -7,9 +6,7 @@
             {
                 "debug": false,
                 "targets": {
-                    "browsers": [
-                        "last 3 versions"
-                    ]
+                    "browsers": ["last 3 versions"]
                 }
             }
         ]
