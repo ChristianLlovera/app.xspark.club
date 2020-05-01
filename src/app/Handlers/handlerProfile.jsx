@@ -1,86 +1,61 @@
 import dataBase from '../DataBase'
 import GetFormProfile from '../Helpers/GetFormProfile'
+import CreateProfile from '../Helpers/CreateProfile'
+import GetProfileList from '../Helpers/GetProfileList'
+import GetProfileId from '../Helpers/GetProfileId'
+import SetProfileId from '../Helpers/SetProfileId'
+import DelProfileId from '../Helpers/DelProfileId'
 import DownloadCSV from '../Helpers/DownloadCSV'
 import FormatToProfilesDownload from '../Helpers/FormatToProfilesDownload'
 
-
 export const handlerListProfile = async arr => {
-
-    const db = dataBase()
     const [setData, setLoading] = arr
-    const res = await db.setCollection('profiles')
-        .orderBy({ field: 'info.name', type: 'asc' })
-        .list()
-
-    setData(res.payload)
+    const list = await GetProfileList()
+    setData(list)
     setLoading(false)
-
 }
 
 export const handlerGetProfile = async obj => {
-
-    const db = dataBase()
     const { id, setProfile, setLoading } = obj
-    const res = await db.setCollection('profiles').get(id)
-    setProfile(res.payload)
+    const profile = await GetProfileId(id)
+    setProfile(profile)
     setLoading(false)
-
 }
 
 export const handlerDelProfile = async obj => {
     const { id, setDeleting, setExist } = obj
     setDeleting(true)
-    const db = dataBase()
-    await db.setCollection('profiles').delete(id)
+    await DelProfileId(id)
     setExist(false)
 }
 
-
 export const handlerAddProfile = async obj => {
-
     const { changes, setChanges, setCreate, history } = obj
     const structure = GetFormProfile()
-    const db = dataBase()
-
     if (changes == 'active') {
         setChanges('')
         setCreate(true)
-        const res = await db.setCollection('profiles').create(structure)
-        history.push(`/profile/show/${res.id}`)
+        const profileId = await CreateProfile(structure)
+        history.push(`/profile/show/${profileId}`)
     }
-
 }
 
-
 export const handlerSaveProfile = async obj => {
-
     const { id, setSaving, changes, setChanges } = obj
-    const db = dataBase()
     const structure = GetFormProfile()
-
     if (changes == 'active') {
         setChanges('')
         setSaving(true)
-        await db.setCollection('profiles').update(id, structure)
+        await SetProfileId(id, structure)
         setSaving(false)
     }
-
 }
 
 export const handlerDownload = async obj => {
-
     const { setDownloading } = obj
-
     setDownloading(true)
-
-    const db = dataBase()
-    const res = await db.setCollection('profiles')
-        .orderBy({ field: 'info.name', type: 'asc' })
-        .list()
-
+    const list = await GetProfileList()
     setDownloading(false)
-
-    const format = FormatToProfilesDownload(res.payload)
+    const format = FormatToProfilesDownload(list)
     DownloadCSV(format)
-
 }

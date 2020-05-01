@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { CardGrid, CardBlock } from '../../../Layout/Card'
 
 import InputFactory from '../Factorys/InputFactory'
@@ -46,7 +46,7 @@ const FormProfiles = props => {
                 <CardBlock>
                     <InputFactory type='text' value={info.name} {...props} prefix="info" input="name" description='Escribe un Nombre' />
                     <InputFactory type='date' value={info.birthdate} {...props} prefix="info" input="birthdate" />
-                    <InputFactory type='text' value={info.academy} {...props} prefix="info" input="academy" description='Escribe una Academia' />
+                    <InputFactory type='list' value={info.academy} {...props} prefix="info" input="academy" description='Selecciona una Opción' />
                     <InputFactory type="list" value={info.director} {...props} prefix="info" input="director" description='Selecciona una Opción' />
                 </CardBlock>
                 <CardBlock>

@@ -24,7 +24,6 @@ const Menu = props => {
     const { getMenu, setMenu, getStore } = useStore()
     const Menu = getMenu()
 
-
     return (
         <>
             <div className={Menu ? 'menu menu-open' : 'menu'}>
@@ -36,8 +35,7 @@ const Menu = props => {
                 </header>
                 <div className="body scroll">
                     <Button icon='plus' text='fichas' to="/profile/list" />
-                    <Button icon='plus' text='entrenadores' to="/" />
-                    <Button icon='plus' text='login' to="/login" />
+                    <Button icon='plus' text='usuarios' to="/" />
                 </div>
             </div>
 

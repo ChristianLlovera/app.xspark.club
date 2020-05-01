@@ -321,8 +321,8 @@ const List = props => {
     const { title, name, data, options, placeholder, onChange } = props
 
 
-    const handleChange = () => {
-        onChange ? onChange() : null
+    const handleChange = (e) => {
+        typeof onChange == 'function' ? onChange(e) : null
         const input = document.querySelector(`[name=${name}]`)
         input.dataset.value = input.value
 
@@ -337,7 +337,7 @@ const List = props => {
                 <span>{title}</span>
             </div>
 
-            <select name={name} defaultValue={data} onChange={() => handleChange()} data-value={data}>
+            <select name={name} defaultValue={data} onChange={e => handleChange(e)} data-value={data}>
                 <option value=''>--{placeholder}--</option>
                 {options.map((element, key) => <option key={key} value={element.value}>{element.name}</option>)}
             </select>

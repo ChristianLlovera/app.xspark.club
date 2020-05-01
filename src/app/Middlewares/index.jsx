@@ -42,12 +42,11 @@ const handlerActions = async obj => {
 const Middleware = props => {
 
     const { actions } = props
-    const [component, setComponent] = useState()
+    const [component, setComponent] = useState(<Card loader={true} />)
     const params = useParams()
 
     useEffect(() => {
 
-        setComponent(<Card loader={true} />)
         window.reject ? window.reject() : null
         handlerActions({ actions, params, setComponent, props })
 
