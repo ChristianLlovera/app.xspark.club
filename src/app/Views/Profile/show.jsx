@@ -6,7 +6,7 @@ import { Card, CardProfileHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import trans from '../../Helpers/Translate'
 import Average from '../../Helpers/Average'
 import nl2br from 'react-nl2br'
-import { handlerGetProfile } from '../../Handlers/handlerProfile'
+import { handlerGetProfile } from '../../Handlers/HandlerProfile'
 
 
 const ProfileShow = props => {

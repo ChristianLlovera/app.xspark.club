@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom"
 import IconButton from '../../Layout/IconButton'
 import { Card, CardTitleHeader, CardRowProfile } from '../../Layout/Card'
-import { handlerListProfile, handlerDelProfile, handlerDownload } from '../../Handlers/handlerProfile'
+import { handlerListProfile, handlerDelProfile, handlerDownload } from '../../Handlers/HandlerProfile'
 
 const Row = props => {
     const { data } = props
@@ -36,7 +36,7 @@ const ProfileList = props => {
     const history = useHistory()
 
     useEffect(() => {
-        handlerListProfile([setData, setLoading])
+        handlerListProfile({ setData, setLoading })
     }, [])
 
     return (

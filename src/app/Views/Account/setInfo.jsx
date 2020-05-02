@@ -3,7 +3,8 @@ import { Card, CardGrid, CardBlock, CardTitleHeader, CardErrors } from '../../La
 import { Input } from '../../Layout/Input'
 import { useHistory } from "react-router-dom"
 import TextButton from '../../Layout/TextButton'
-import { handlerGetData, handlerSetData } from '../../Handlers/handlersAccount'
+import HandlerGetData from '../../Handlers/HandlersAccount/HandlerGetData'
+import HandlerSetData from '../../Handlers/HandlersAccount/HandlerSetData'
 import IconButton from '../../Layout/IconButton'
 
 if (process.env.WEBPACK) { require('./_style.scss') }
@@ -23,17 +24,17 @@ const Account = props => {
     }
 
     useEffect(() => {
-        handlerGetData(dep)
+        HandlerGetData(dep)
     }, [])
 
     return (
         <Card loader={loading}>
             <CardTitleHeader title="Perfil" type="list"
                 buttonLeft={<IconButton radio={50} icon="back" onClick={() => history.push(`/`)} />}
-                buttonRight={<IconButton type={changes} process={saving} radio={50} icon="save" onClick={() => handlerSetData(dep)} />}
+                buttonRight={<IconButton type={changes} process={saving} radio={50} icon="save" onClick={() => HandlerSetData(dep)} />}
             />
-            {!data.name &&
-                <div className="account-message"> <strong>Completa tus datos de usuario,</strong>  tus datos de usuario son sumamente importantes para la correcta gestión de tu cuenta.</div>
+            {!data.name && !data.lastname && !data.phone && !data.document && !data.emergency &&
+                < div className="account-message"> <strong>Completa tus datos de usuario,</strong>  tus datos de usuario son sumamente importantes para la correcta gestión de tu cuenta.</div>
             }
 
             <br />
@@ -52,7 +53,7 @@ const Account = props => {
 
             <CardGrid type='center'>
                 <CardBlock>
-                    <TextButton name='Guardar' onClick={() => handlerSetData(dep)} />
+                    <TextButton name='Guardar' onClick={() => HandlerSetData(dep)} />
                 </CardBlock>
             </CardGrid>
 

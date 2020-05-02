@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom"
-import { handlerAddProfile } from '../../Handlers/handlerProfile'
+import { handlerAddProfile } from '../../Handlers/HandlerProfile'
 import { Card, CardTitleHeader } from '../../Layout/Card'
 import IconButton from '../../Layout/IconButton'
 

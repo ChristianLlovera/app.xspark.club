@@ -14,17 +14,10 @@ const params = {
 
 config(params)
 
-jest.mock("../DataBase", () => {
-    return false
-})
-
-jest.mock("../Auth", () => ({
-    getAuth: () => new Promise(resolve => resolve({ uid: false }))
-}))
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: () => { }
+    useParams: () => ({ id: 'asdfasdoiu23r4wesdfwsdf' })
 }))
 
 console.error = jest.fn()
@@ -80,5 +73,7 @@ describe('testing middlerware component', () => {
         await act(async () => { render(<Arrange />, params.container) })
         expect(window.reject).not.toBe(undefined)
     })
+
+
 
 })

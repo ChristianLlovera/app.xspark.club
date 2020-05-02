@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from "react-router-dom"
 import { Input } from '../../Layout/Input'
-import { handlerGetProfile, handlerSaveProfile } from '../../Handlers/handlerProfile'
+import { handlerGetProfile, handlerSaveProfile } from '../../Handlers/HandlerProfile'
 import { Card, CardTitleHeader, CardGrid, CardBlock } from '../../Layout/Card'
 import IconButton from '../../Layout/IconButton'
 

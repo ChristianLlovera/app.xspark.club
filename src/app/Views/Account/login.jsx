@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, CardGrid, CardBlock, CardTitleHeader, CardErrors } from '../../Layout/Card'
 import { Input } from '../../Layout/Input'
 import TextButton from '../../Layout/TextButton'
-import { handlerLogin } from '../../Handlers/handlersAccount'
+import HandlerLogin from '../../Handlers/HandlersAccount/HandlerLogin'
 import { useHistory } from 'react-router-dom'
 import useStore from '../../Hooks/useStore'
 
@@ -29,7 +29,7 @@ const Auth = props => {
             <CardGrid type='center'>
                 <CardBlock>
                     <Input type='text' data={data.email} title='Correo Electrónico' name='email' placeholder='Escribe tu Correo Electrónico' />
-                    <Input type='password' title='Contraseña' name='password' onEnter={() => handlerLogin(dep)} placeholder='Escribe tu Contraseña' />
+                    <Input type='password' title='Contraseña' name='password' onEnter={() => HandlerLogin(dep)} placeholder='Escribe tu Contraseña' />
                 </CardBlock>
             </CardGrid>
             <br />
@@ -37,7 +37,7 @@ const Auth = props => {
 
             <CardGrid type='center'>
                 <CardBlock>
-                    <TextButton name='Login' onClick={() => handlerLogin(dep)} />
+                    <TextButton name='Login' onClick={() => HandlerLogin(dep)} />
                 </CardBlock>
             </CardGrid>
 

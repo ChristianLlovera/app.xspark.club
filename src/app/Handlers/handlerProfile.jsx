@@ -1,15 +1,14 @@
-import dataBase from '../DataBase'
-import GetFormProfile from '../Helpers/GetFormProfile'
-import CreateProfile from '../Helpers/CreateProfile'
-import GetProfileList from '../Helpers/GetProfileList'
-import GetProfileId from '../Helpers/GetProfileId'
-import SetProfileId from '../Helpers/SetProfileId'
-import DelProfileId from '../Helpers/DelProfileId'
+import GetFormProfile from '../Helpers/Forms/GetFormProfile'
+import AddProfile from '../Facades/DataBase/Profiles/AddProfile'
+import GetProfileList from '../Facades/DataBase/Profiles/GetProfileList'
+import GetProfile from '../Facades/DataBase/Profiles/GetProfile'
+import SetProfile from '../Facades/DataBase/Profiles/SetProfile'
+import DelProfile from '../Facades/DataBase/Profiles/DelProfile'
 import DownloadCSV from '../Helpers/DownloadCSV'
 import FormatToProfilesDownload from '../Helpers/FormatToProfilesDownload'
 
-export const handlerListProfile = async arr => {
-    const [setData, setLoading] = arr
+export const handlerListProfile = async obj => {
+    const { setData, setLoading } = obj
     const list = await GetProfileList()
     setData(list)
     setLoading(false)
@@ -17,7 +16,7 @@ export const handlerListProfile = async arr => {
 
 export const handlerGetProfile = async obj => {
     const { id, setProfile, setLoading } = obj
-    const profile = await GetProfileId(id)
+    const profile = await GetProfile(id)
     setProfile(profile)
     setLoading(false)
 }
@@ -25,17 +24,17 @@ export const handlerGetProfile = async obj => {
 export const handlerDelProfile = async obj => {
     const { id, setDeleting, setExist } = obj
     setDeleting(true)
-    await DelProfileId(id)
+    await DelProfile(id)
     setExist(false)
 }
 
 export const handlerAddProfile = async obj => {
     const { changes, setChanges, setCreate, history } = obj
-    const structure = GetFormProfile()
+    const data = GetFormProfile()
     if (changes == 'active') {
         setChanges('')
         setCreate(true)
-        const profileId = await CreateProfile(structure)
+        const profileId = await AddProfile(data)
         history.push(`/profile/show/${profileId}`)
     }
 }
@@ -46,7 +45,7 @@ export const handlerSaveProfile = async obj => {
     if (changes == 'active') {
         setChanges('')
         setSaving(true)
-        await SetProfileId(id, structure)
+        await SetProfile(id, structure)
         setSaving(false)
     }
 }

@@ -1,9 +1,9 @@
-import { getAuth } from '../Auth'
+import GetAuth from '../Facades/Auth/GetAuth'
 
 const IsAuth = async () => {
 
-    const usr = await getAuth()
-    if (usr && usr.uid && !usr.isAnonymous) { return true }
+    const auth = await GetAuth()
+    if (auth && auth.uid && !auth.isAnonymous) { return true }
 
     return false
 

@@ -7,7 +7,8 @@ import { Card } from '../Layout/Card'
 
 const handlerActions = async obj => {
 
-    const { actions, params, setComponent, props } = obj
+    const { params, setComponent, props } = obj
+    const { actions } = props
 
     if (actions) {
 
@@ -17,15 +18,18 @@ const handlerActions = async obj => {
 
             if (trigger) {
 
-                const action = () => new Promise((resolve, reject) => {
+                const prom = () => new Promise((resolve, reject) => {
                     window.reject = () => reject('reject in middleware')
                     const obj = { params, resolve }
                     trigger(obj)
                 })
 
-                const redirect = await action()
-                if (redirect) { setComponent(<Redirect to={redirect} />) }
-                else { setComponent(props.children) }
+                const redirect = await prom()
+
+                if (redirect) {
+                    setComponent(<Redirect to={redirect} />)
+                    return false
+                }
 
             } else {
                 setComponent(props.children)
@@ -34,6 +38,8 @@ const handlerActions = async obj => {
 
         }
 
+        setComponent(props.children)
+
     } else { setComponent(props.children) }
 
 }
@@ -41,14 +47,13 @@ const handlerActions = async obj => {
 
 const Middleware = props => {
 
-    const { actions } = props
     const [component, setComponent] = useState(<Card loader={true} />)
     const params = useParams()
-
     useEffect(() => {
 
+        setComponent(<Card loader={true} />)
         window.reject ? window.reject() : null
-        handlerActions({ actions, params, setComponent, props })
+        handlerActions({ params, setComponent, props })
 
     }, [props.children])
 

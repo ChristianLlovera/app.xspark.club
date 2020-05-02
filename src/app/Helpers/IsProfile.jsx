@@ -1,12 +1,10 @@
-import dataBase from '../DataBase'
+import GetProfile from '../Facades/DataBase/Profiles/GetProfile'
 
 const IsProfile = async id => {
 
-    const db = dataBase()
-
-    const profile = await db.setCollection('profiles').get(id)
-    if (profile.payload.exists) { return true }
-    return false
+    const profile = await GetProfile(id)
+    if (!profile) { return false }
+    return true
 
 }
 

@@ -3,10 +3,8 @@ import curretUserIsAuth from '../Helpers/IsAuth'
 import idIsproflle from '../Helpers/IsProfile'
 
 export const isProfile = async props => {
-
     const { params, resolve } = props
     const { id } = params
-
     const profile = await idIsproflle(id)
     profile ? resolve(false) : resolve('/profile/list')
 

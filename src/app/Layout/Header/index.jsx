@@ -5,7 +5,7 @@ import IconButton from '../IconButton'
 import currentUserIsAuth from '../../Helpers/IsAuth'
 import currentUserIsAdmin from '../../Helpers/IsAdmin'
 import { useHistory } from 'react-router-dom'
-import { handlerLogout } from '../../Handlers/handlersAccount'
+import HandlerLogout from '../../Handlers/HandlersAccount/HandlerLogout'
 
 
 if (process.env.WEBPACK) { require('./_style.scss') }
@@ -46,7 +46,7 @@ const Header = props => {
 
 
                     <IconButton radio={50} icon="profile" onClick={() => history.push('/account/set/info')} />
-                    <IconButton radio={50} icon="exit" onClick={() => handlerLogout({ history, setIsLogin, setIsAdmin })} />
+                    <IconButton radio={50} icon="exit" onClick={() => HandlerLogout({ history, setIsLogin, setIsAdmin })} />
 
                 </div>}
         </div>

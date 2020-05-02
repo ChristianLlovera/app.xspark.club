@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import { Input } from '../../Layout/Input'
 import TextButton from '../../Layout/TextButton'
 import IconButton from '../../Layout/IconButton'
-import { handlerResetPassword } from '../../Handlers/handlersAccount'
+import HandlerResetPassword from '../../Handlers/HandlersAccount/HandlerResetPassword'
 
 
 const ResetPassword = props => {
@@ -36,7 +36,7 @@ const ResetPassword = props => {
 
             <CardGrid type='center'>
                 <CardBlock>
-                    <TextButton name='Enviar' onClick={() => handlerResetPassword(dep)} />
+                    <TextButton name='Enviar' onClick={() => HandlerResetPassword(dep)} />
                 </CardBlock>
             </CardGrid>
 

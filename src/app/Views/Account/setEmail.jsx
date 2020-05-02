@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import { Input } from '../../Layout/Input'
 import TextButton from '../../Layout/TextButton'
 import IconButton from '../../Layout/IconButton'
-import { handlerSetEmail } from '../../Handlers/handlersAccount'
+import { HandlerSetEmail } from '../../Handlers/HandlersAccount/HandlerSetEmail'
 
 
 const SetEmail = props => {
@@ -26,7 +26,7 @@ const SetEmail = props => {
                     <br />
                     <br />
                     <Input type='text' data={data.email} title='Correo Electrónico' name='email' placeholder='Escribe tu nuevo Correo Electrónico' />
-                    <Input type='password' onEnter={() => handlerSetEmail(dep)} title='Contraseña Actual' name='password' placeholder='Escribe tu Contraseña Actual' />
+                    <Input type='password' onEnter={() => HandlerSetEmail(dep)} title='Contraseña Actual' name='password' placeholder='Escribe tu Contraseña Actual' />
                 </CardBlock>
             </CardGrid>
             <br />
@@ -35,7 +35,7 @@ const SetEmail = props => {
             <CardGrid type='center'>
                 <CardBlock>
                     <br />
-                    <TextButton name='Guardar' onClick={() => handlerSetEmail(dep)} />
+                    <TextButton name='Guardar' onClick={() => HandlerSetEmail(dep)} />
                 </CardBlock>
             </CardGrid>
         </Card >

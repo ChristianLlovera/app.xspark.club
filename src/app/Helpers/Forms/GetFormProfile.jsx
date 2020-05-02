@@ -1,10 +1,10 @@
-import { getData } from '../Layout/Input'
+import { getData } from '../../Layout/Input'
 
 const GetFormProfile = () => {
 
     const data = getData()
 
-    const structure = {
+    return {
         info: {
             name: data['info-name'],
             lastname: data['info-lastname'],
@@ -42,8 +42,6 @@ const GetFormProfile = () => {
             emergency: data['attender-emergency']
         }
     }
-
-    return structure
 }
 
 export default GetFormProfile

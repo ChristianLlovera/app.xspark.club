@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom"
 import { Input } from '../../Layout/Input'
 import TextButton from '../../Layout/TextButton'
 import IconButton from '../../Layout/IconButton'
-import { handlerRegister } from '../../Handlers/handlersAccount'
+import HandlerRegister from '../../Handlers/HandlersAccount/HandlerRegister'
 import useStore from '../../Hooks/useStore'
-import { Recaptcha } from '../../Auth'
+import Recaptcha from '../../Facades/Auth/Recaptcha'
 
 
 
@@ -35,7 +35,7 @@ const Register = props => {
                     <br />
                     <Input type='text' data={data.email} title='Correo Electrónico' name='email' placeholder='Ingresa tu Correo Electrónico' />
                     <Input type='password' title='Contraseña' name='password' placeholder='Escribe tu Contraseña' />
-                    <Input type='password' onEnter={() => handlerRegister(dep)} title='Confirmar Contraseña' name='password_confirmation' placeholder='Confirma tu contraseña' />
+                    <Input type='password' onEnter={() => HandlerRegister(dep)} title='Confirmar Contraseña' name='password_confirmation' placeholder='Confirma tu contraseña' />
                     <div id='recaptcha-container'></div>
                 </CardBlock>
             </CardGrid>
@@ -44,7 +44,7 @@ const Register = props => {
 
             <CardGrid type='center'>
                 <CardBlock>
-                    <TextButton name='Guardar' onClick={() => handlerRegister(dep)} />
+                    <TextButton name='Guardar' onClick={() => HandlerRegister(dep)} />
                 </CardBlock>
             </CardGrid>
 

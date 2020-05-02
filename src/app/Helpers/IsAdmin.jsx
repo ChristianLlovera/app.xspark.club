@@ -1,13 +1,12 @@
-import { getAuth } from '../Auth'
-import GetRole from '../Facades/DataBase/Users/GetRole'
-
+import GetAuth from '../Facades/Auth/GetAuth'
+import GetUser from '../Facades/DataBase/Users/GetUser'
 
 const IsAdmin = async () => {
 
-    const usr = await getAuth()
-    if (usr && usr.uid) {
-        const rol = await GetRole(usr.uid)
-        if (rol && rol == 'admin') { return true }
+    const auth = await GetAuth()
+    if (auth && auth.uid) {
+        const user = await GetUser(auth.uid)
+        if (user && user.role == 'admin') { return true }
     }
 
     return false
