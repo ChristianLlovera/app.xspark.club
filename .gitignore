@@ -1,2 +1,4 @@
-/node_modules
+.firebase/
+.vscode/
+node_modules/
 *.log
