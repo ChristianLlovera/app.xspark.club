@@ -2,3 +2,5 @@
 .vscode/
 node_modules/
 *.log
+**/css/bundle.css
+**/js/bundle.js
